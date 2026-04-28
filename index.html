@@ -14,43 +14,36 @@
         }
 
         body {
-            background: #020100;
+            background: #0a0705;
             font-family: 'Inter', sans-serif;
             color: #ede3d4;
             overflow-x: hidden;
         }
 
-        /* кинематографичный баннер с параллаксом */
-        .cinematic-bg {
+        /* фиксированный фон — без анимации, чтобы не лагал */
+        .static-bg {
             position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 120%;
-            height: 120%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -3;
             background: url('https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070&auto=format') center/cover no-repeat;
-            filter: brightness(0.25) sepia(0.25) contrast(1.2) blur(1px);
-            animation: slowZoom 30s infinite alternate ease-in-out;
+            filter: brightness(0.3) sepia(0.15) contrast(1.1);
         }
 
-        @keyframes slowZoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
-        }
-
-        .ambient-overlay {
+        .dark-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            background: radial-gradient(circle at 30% 20%, rgba(20, 12, 5, 0.8), rgba(0, 0, 0, 0.95));
-            backdrop-filter: blur(2px);
+            background: radial-gradient(circle at 30% 20%, rgba(15, 8, 4, 0.8), rgba(0, 0, 0, 0.92));
         }
 
-        /* парящие шестерёнки и частицы */
-        .floating-gears {
+        /* только несколько лёгких шестерёнок (без анимации движения, только лёгкое вращение) */
+        .light-gears {
             position: fixed;
             top: 0;
             left: 0;
@@ -58,390 +51,314 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+            opacity: 0.15;
         }
 
-        .gear-icon {
+        .light-gear {
             position: absolute;
-            font-size: clamp(20px, 6vw, 90px);
-            opacity: 0.12;
-            animation: rotateGear 20s linear infinite;
-            color: #e2a15b;
-            filter: drop-shadow(0 0 3px #ffb45e);
+            font-size: 45px;
+            animation: slowSpin 30s linear infinite;
+            color: #d9913e;
         }
 
-        @keyframes rotateGear {
+        @keyframes slowSpin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, #f7cf91, #c87a2c);
-            border-radius: 50%;
-            opacity: 0;
-            animation: floatUp 12s infinite ease-in-out;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            25% { opacity: 0.6; }
-            75% { opacity: 0.7; }
-            100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
-        }
-
-        .spark {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: #ffbb66;
-            box-shadow: 0 0 10px #f5a623;
-            border-radius: 50%;
-            animation: sparkle 2.5s infinite;
-        }
-
-        @keyframes sparkle {
-            0% { opacity: 0; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1.5); }
-            100% { opacity: 0; transform: scale(0); }
         }
 
         .content {
             position: relative;
             z-index: 10;
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 1.2rem 1.5rem 4rem;
+            padding: 1rem 1.5rem 3rem;
         }
 
-        /* Hero с огромным названием */
+        /* Hero */
         .hero {
             text-align: center;
-            margin: 1.2rem 0 1.5rem;
+            margin: 0.5rem 0 1rem;
         }
 
         .hero h1 {
             font-family: 'Space Grotesk', monospace;
-            font-size: clamp(3.2rem, 13vw, 7.5rem);
+            font-size: clamp(2.8rem, 12vw, 6rem);
             font-weight: 800;
-            letter-spacing: clamp(4px, 2vw, 20px);
-            background: linear-gradient(135deg, #fff0cf, #f5bc6e, #ffdd9e);
+            letter-spacing: clamp(4px, 2vw, 14px);
+            background: linear-gradient(135deg, #ffe0af, #e7a551, #ffd494);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 0 0 30px rgba(235, 145, 45, 0.7);
-            margin-bottom: 0.75rem;
-            animation: textGlow 3s infinite alternate;
-        }
-
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 15px rgba(218, 130, 40, 0.4); letter-spacing: clamp(4px, 2vw, 20px); }
-            100% { text-shadow: 0 0 40px rgba(245, 170, 60, 0.9); letter-spacing: clamp(5px, 2.5vw, 22px); }
+            text-shadow: 0 0 15px rgba(220, 120, 30, 0.5);
+            margin-bottom: 0.5rem;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
             border-radius: 100px;
-            padding: 0.65rem 2rem;
-            border: 1px solid #f3bc6c;
-            font-size: clamp(0.8rem, 3vw, 1rem);
-            font-weight: 600;
-            margin-top: 0.2rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+            padding: 0.5rem 1.5rem;
+            border: 1px solid #d6964b;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         .ip-card {
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(20px);
-            border-radius: 80px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
             display: inline-flex;
             flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            padding: 0.7rem 1.8rem;
-            margin-top: 1.8rem;
-            border: 1px solid #e6a857;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            transition: 0.2s;
+            gap: 0.8rem;
+            padding: 0.5rem 1.2rem;
+            margin-top: 1.2rem;
+            border: 1px solid #d6964b;
         }
 
         .ip-text {
             font-family: monospace;
-            font-size: clamp(1rem, 4.5vw, 1.5rem);
-            letter-spacing: 1px;
-            font-weight: 700;
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
+            font-weight: 600;
         }
 
         .copy-btn {
-            background: #b47a42;
+            background: #a46d39;
             border: none;
             color: #fff3e0;
-            padding: 8px 22px;
+            padding: 5px 16px;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.15s;
         }
 
-        .copy-btn:hover { background: #d6954f; transform: scale(1.02); }
-        .copy-btn:active { transform: scale(0.96); }
+        .copy-btn:active { transform: scale(0.97); }
 
-        /* табы с 3D-эффектом */
+        /* табы */
         .tabs-wrapper {
             display: flex;
             justify-content: center;
-            margin: 2.5rem 0 1rem;
+            margin: 2rem 0 1rem;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
 
         .tab-btn {
-            background: rgba(20, 15, 10, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid #d39247;
-            padding: 0.7rem 1.8rem;
+            background: rgba(20, 15, 10, 0.65);
+            backdrop-filter: blur(6px);
+            border: 1px solid #bc7a3e;
+            padding: 0.5rem 1.4rem;
             font-family: 'Space Grotesk', monospace;
-            font-size: clamp(0.85rem, 3vw, 1.05rem);
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #f5e0be;
-            border-radius: 60px;
+            color: #f0dbbc;
+            border-radius: 50px;
             cursor: pointer;
-            transition: 0.25s;
+            transition: 0.15s;
         }
 
-        .tab-btn i { margin-right: 10px; }
+        .tab-btn i { margin-right: 6px; }
 
         .tab-btn.active {
-            background: #e5a153;
-            color: #0f0904;
-            border-color: #ffddb0;
-            box-shadow: 0 0 15px #f5bc6e;
-        }
-
-        .tab-btn:hover:not(.active) {
-            background: #8b643eca;
-            transform: translateY(-2px);
+            background: #d78f48;
+            color: #0d0804;
+            border-color: #ffcf8a;
         }
 
         .tab-pane {
             display: none;
-            animation: fadeSlide 0.45s ease;
+            animation: fadeIn 0.25s ease;
         }
 
         .tab-pane.active-pane {
             display: block;
         }
 
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(15px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* стеклянные карточки с глянцем */
+        /* карточки — без тяжёлых эффектов */
         .glass-card {
-            background: rgba(25, 18, 13, 0.7);
-            backdrop-filter: blur(14px);
-            border-radius: 2rem;
-            padding: 2rem;
-            margin: 1.2rem 0 2rem;
-            border-left: 6px solid #f0b15a;
-            border-right: 1px solid #b87a45;
-            box-shadow: 0 25px 45px -12px black;
-            transition: 0.2s;
-        }
-
-        .glass-card:hover {
-            background: rgba(30, 22, 17, 0.75);
+            background: rgba(20, 16, 12, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0 1.5rem;
+            border-left: 4px solid #de9b4a;
+            border-right: 1px solid #a56f38;
+            box-shadow: 0 10px 25px -8px black;
         }
 
         .glass-card h2 {
             font-family: 'Space Grotesk', monospace;
-            font-size: clamp(1.5rem, 5vw, 2.2rem);
-            color: #fdda9b;
-            margin-bottom: 1.2rem;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+            color: #fbcf8c;
+            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .feature-tag {
-            background: #2f231cd9;
-            border-radius: 60px;
-            padding: 0.45rem 1.3rem;
-            font-size: 0.8rem;
+            background: #2b1f18d9;
+            border-radius: 50px;
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
             display: inline-block;
-            margin: 0.25rem 0.6rem 0 0;
-            border: 1px solid #dd9a4b;
-            color: #fbeccd;
+            margin: 0.2rem 0.4rem 0 0;
+            border: 1px solid #ca8542;
         }
 
-        /* кнопки-карточки с элегантным ховером */
+        /* кнопки-карточки без тяжёлых ховеров */
         .action-panel {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
         }
 
         .action-block {
-            background: linear-gradient(145deg, #201812, #140f0b);
-            border-radius: 2rem;
-            padding: 1.6rem;
+            background: #1a1410;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
             text-align: center;
-            width: min(220px, 80vw);
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            width: min(180px, 75vw);
+            transition: 0.15s;
             cursor: pointer;
-            border-bottom: 3px solid #c5843e;
-            position: relative;
-            overflow: hidden;
+            border-bottom: 2px solid #bc7b3c;
         }
-
-        .action-block::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,200,100,0.15), transparent);
-            transition: 0.5s;
-        }
-
-        .action-block:hover::after { left: 100%; }
 
         .action-block:hover {
-            transform: translateY(-8px);
-            background: #2f241e;
-            border-bottom-color: #f4bc6c;
+            transform: translateY(-3px);
+            background: #241d18;
+            border-bottom-color: #e7a554;
         }
 
         .action-block i {
-            font-size: 3rem;
-            color: #f7bc6a;
-            margin-bottom: 0.6rem;
+            font-size: 2.2rem;
+            color: #e7a452;
+            margin-bottom: 0.4rem;
         }
 
-        .action-block h3 { font-size: 1.7rem; font-weight: 700; }
+        .action-block h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .action-block p {
+            font-size: 0.7rem;
+        }
+
         .mini-btn {
-            background: #c58541d9;
-            margin-top: 0.9rem;
-            padding: 0.4rem 1.3rem;
-            border-radius: 60px;
-            font-size: 0.75rem;
+            background: #b1763dd9;
+            margin-top: 0.5rem;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
             font-weight: 600;
             display: inline-block;
         }
 
-        /* ссылка на карту — эффектная */
-        .map-glow-card {
-            background: rgba(0, 0, 0, 0.55);
-            border-radius: 2rem;
-            padding: 2rem;
+        /* ссылка на карту — простая и красивая */
+        .map-link-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
             text-align: center;
             margin: 1rem 0;
-            border: 1px solid #f0b15a;
-            transition: all 0.3s;
+            border: 1px solid #d6964b;
+            transition: 0.15s;
         }
-        .map-glow-card:hover {
-            background: rgba(0, 0, 0, 0.75);
-            border-color: #ffca7c;
-            box-shadow: 0 0 20px rgba(240, 160, 70, 0.3);
+        .map-link-card:hover {
+            background: rgba(0, 0, 0, 0.7);
         }
-        .map-glow-card a {
-            font-size: clamp(1.2rem, 5vw, 1.8rem);
+        .map-link-card a {
+            font-size: clamp(1rem, 4vw, 1.4rem);
             font-weight: 700;
             color: #ffdead;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 15px;
-            background: #3a2c1fb3;
-            padding: 0.9rem 2.2rem;
-            border-radius: 70px;
-            transition: 0.2s;
+            gap: 12px;
+            background: #2f241bb3;
+            padding: 0.6rem 1.5rem;
+            border-radius: 60px;
+            transition: 0.15s;
         }
-        .map-glow-card a:hover {
-            background: #e5a154;
-            color: #1e140c;
-            transform: scale(1.02);
-            box-shadow: 0 0 20px #f5bc6e;
+        .map-link-card a:hover {
+            background: #c5823f;
+            color: #1f160f;
         }
-        .map-glow-card i { font-size: 1.8rem; }
 
         .link-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.2rem;
-            margin: 1.5rem 0 1rem;
+            gap: 1rem;
+            margin: 1rem 0;
         }
 
         .link-chip {
-            background: #231b15c9;
-            backdrop-filter: blur(6px);
-            padding: 0.65rem 1.6rem;
-            border-radius: 60px;
+            background: #1f1611b3;
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
             text-decoration: none;
-            color: #faf0df;
+            color: #f7e0bb;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            transition: 0.2s;
-            font-size: 0.9rem;
-            border: 1px solid #c98f4c;
+            gap: 8px;
+            transition: 0.15s;
+            font-size: 0.8rem;
+            border: 1px solid #b87a45;
         }
 
         .link-chip:hover {
-            background: #c28746c9;
-            color: #1f160e;
-            transform: translateY(-2px);
+            background: #b47d49b3;
+            color: #fff5e6;
         }
 
         footer {
-            margin-top: 3rem;
+            margin-top: 2rem;
             text-align: center;
-            opacity: 0.7;
-            font-size: 0.7rem;
-            border-top: 1px solid #a1744180;
-            padding-top: 2rem;
+            opacity: 0.6;
+            font-size: 0.65rem;
+            border-top: 1px solid #7e603d60;
+            padding-top: 1.5rem;
         }
 
         .rotate-icon {
-            animation: spinSlow 18s linear infinite;
+            animation: slowSpin 15s linear infinite;
             display: inline-block;
         }
 
-        @keyframes spinSlow {
-            from { transform: rotate(0deg);}
-            to { transform: rotate(360deg);}
-        }
-
         @media (max-width: 640px) {
-            .content { padding: 1rem 1rem 3rem; }
-            .glass-card { padding: 1.3rem; }
-            .action-block { padding: 1rem; width: 150px; }
-            .action-block i { font-size: 2.2rem; }
-            .action-block h3 { font-size: 1.2rem; }
-            .tab-btn { padding: 0.4rem 1rem; font-size: 0.8rem; }
-            .ip-card { gap: 0.6rem; padding: 0.5rem 1rem; }
-            .map-glow-card a { padding: 0.5rem 1.2rem; font-size: 1rem; gap: 8px; }
+            .content { padding: 0.8rem 1rem 2rem; }
+            .glass-card { padding: 1rem; }
+            .action-block { padding: 0.8rem; width: 140px; }
+            .action-block i { font-size: 1.8rem; }
+            .action-block h3 { font-size: 1.1rem; }
+            .tab-btn { padding: 0.35rem 0.9rem; font-size: 0.75rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="cinematic-bg"></div>
-<div class="ambient-overlay"></div>
-<div class="floating-gears" id="gearContainer"></div>
-<div id="particleField"></div>
-<div id="sparkField"></div>
+<div class="static-bg"></div>
+<div class="dark-overlay"></div>
+<div class="light-gears" id="lightGears">
+    <!-- несколько статичных шестерёнок с лёгким вращением -->
+</div>
 
 <div class="content">
     <div class="hero">
@@ -449,7 +366,6 @@
         <div class="hero-badge">
             <i class="fas fa-cogs rotate-icon"></i>
             <span>CREATE · AERONAUTICS · ПАРОВАЯ ЭПОХА</span>
-            <i class="fas fa-fan rotate-icon"></i>
         </div>
         <div class="ip-card">
             <i class="fas fa-globe"></i>
@@ -467,15 +383,13 @@
     <!-- Вкладка Главная -->
     <div id="tab-main" class="tab-pane active-pane">
         <div class="glass-card">
-            <h2><i class="fas fa-brain"></i> Technovate — лаборатория инженерии</h2>
-            <p style="font-size: 1.05rem; line-height: 1.5;">Механическое сердце вселенной <strong>Create + Create Aeronautics</strong>. Здесь пар и шестерёнки правят балом, а небесные линкоры, автоматизированные заводы и летающие дирижабли — реальность. Мы создали оптимизированное окружение для сложных механизмов: никакой магии, только изобретательность, медь и сталь. Строй, программируй конвейеры и становись легендой стимпанк-инженерии.</p>
-            <div style="margin: 1.2rem 0 0.5rem;">
+            <h2><i class="fas fa-microchip"></i> Technovate — территория инженеров</h2>
+            <p>Механическое сердце вселенной <strong>Create + Create Aeronautics</strong>. Здесь пар и шестерёнки правят балом, а небесные линкоры и автоматизированные заводы — реальность. Строй дирижабли, конвейеры и становись легендой стимпанк-инженерии.</p>
+            <div style="margin: 0.8rem 0 0;">
                 <span class="feature-tag">⚙️ Create 0.5.1 + Aeronautics</span>
-                <span class="feature-tag">✈️ Физические корабли и крафты</span>
-                <span class="feature-tag">🧲 GriefPrevention (защита)</span>
+                <span class="feature-tag">✈️ Физические корабли</span>
+                <span class="feature-tag">🧲 Защита территорий</span>
                 <span class="feature-tag">🏭 Технические ивенты</span>
-                <span class="feature-tag">📈 Экономика вращения</span>
-                <span class="feature-tag">🛸 Сражения на дирижаблях</span>
             </div>
         </div>
 
@@ -483,113 +397,88 @@
             <div class="action-block" id="discordBtn">
                 <i class="fab fa-discord"></i>
                 <h3>Discord</h3>
-                <p style="font-size: 0.75rem;">Гайды, чертежи, сообщество</p>
+                <p>Гайды, чертежи</p>
                 <div class="mini-btn">Присоединиться →</div>
             </div>
             <div class="action-block" id="modpackBtn">
                 <i class="fas fa-download"></i>
                 <h3>Сборка</h3>
-                <p style="font-size: 0.75rem;">ZIP-архив</p>
+                <p>ZIP-архив</p>
                 <div class="mini-btn">Скачать →</div>
             </div>
             <div class="action-block" id="donateBtn">
                 <i class="fas fa-gift"></i>
                 <h3>Донат</h3>
-                <p style="font-size: 0.75rem;">Easy Donate</p>
+                <p>Easy Donate</p>
                 <div class="mini-btn">Поддержать →</div>
             </div>
         </div>
 
         <div class="link-row">
             <a href="#" id="discordLinkInline" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
-            <a href="#" id="modpackLinkInline" class="link-chip" download><i class="fas fa-box-open"></i> Скачать сборку (ZIP)</a>
+            <a href="#" id="modpackLinkInline" class="link-chip"><i class="fas fa-box-open"></i> Скачать сборку (ZIP)</a>
             <a href="#" id="donateLinkInline" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru/technovate</a>
         </div>
     </div>
 
-    <!-- Вкладка Карта мира — ваша ссылка -->
+    <!-- Вкладка Карта мира -->
     <div id="tab-map" class="tab-pane">
         <div class="glass-card">
-            <h2><i class="fas fa-globe-asia"></i> Интерактивная карта мира</h2>
-            <p>Исследуйте владения Technovate в реальном времени: постройки, механизмы и даже пролетающие дирижабли — всё прямо в браузере.</p>
-            <div class="map-glow-card">
-                <!-- ⬇️ ВАША ССЫЛКА НА КАРТУ (Dynmap/BlueMap) ⬇️ -->
+            <h2><i class="fas fa-map-marked-alt"></i> Живая карта мира</h2>
+            <p>Исследуйте наш мир в реальном времени: постройки, механизмы и приключения.</p>
+            <div class="map-link-card">
                 <a href="http://5.188.159.239:30331" target="_blank" id="mapLink">
-                    <i class="fas fa-map-marked-alt"></i> Открыть карту мира
+                    <i class="fas fa-external-link-alt"></i> Открыть карту мира
                     <i class="fas fa-arrow-right"></i>
                 </a>
-                <!-- ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ -->
             </div>
-            <p style="font-size: 0.85rem; text-align: center;"><i class="fas fa-location-dot"></i> Dynmap — смотрите за территорией, стройте и исследуйте.</p>
+            <p style="font-size: 0.75rem; text-align: center;"><i class="fas fa-location-dot"></i> Dynmap — смотрите за территорией прямо в браузере.</p>
         </div>
     </div>
 
     <!-- Вкладка Правила -->
     <div id="tab-rules" class="tab-pane">
         <div class="glass-card">
-            <h2><i class="fas fa-gavel"></i> Кодекс мастера</h2>
+            <h2><i class="fas fa-gavel"></i> Кодекс Technovate</h2>
             <ul style="margin-left: 1rem; list-style: none;">
-                <li style="margin-bottom: 0.9rem;">⚙️ <strong>Уважение к чужим механизмам</strong> — гриферство и кражи запрещены, приват обязателен.</li>
-                <li style="margin-bottom: 0.9rem;">✈️ <strong>Aeronautics:</strong> корабли не должны превышать 400 блоков и создавать лаги.</li>
-                <li style="margin-bottom: 0.9rem;">🔧 <strong>Честная игра</strong> — читы, дюпы, эксплойты с физикой = перманентный бан.</li>
-                <li style="margin-bottom: 0.9rem;">🏭 <strong>Строительство:</strong> не застраивать спавн, отступ от соседа — 75 блоков.</li>
-                <li style="margin-bottom: 0.9rem;">📢 <strong>Общение:</strong> без токсичности, оскорблений, расизма. Дискорд — главная связь.</li>
+                <li style="margin-bottom: 0.7rem;">⚙️ <strong>Уважение к механизмам</strong> — гриферство и кражи запрещены.</li>
+                <li style="margin-bottom: 0.7rem;">✈️ <strong>Aeronautics:</strong> корабли не должны создавать лаги сервера.</li>
+                <li style="margin-bottom: 0.7rem;">🔧 <strong>Честная игра</strong> — читы, дюпы = перманентный бан.</li>
+                <li style="margin-bottom: 0.7rem;">🏭 <strong>Строительство:</strong> не застраивать спавн, отступ 75 блоков.</li>
+                <li style="margin-bottom: 0.7rem;">📢 <strong>Общение:</strong> без токсичности и оскорблений.</li>
             </ul>
-            <p>📜 Полный свод в Discord #правила. Нарушения = тех-бан или изъятие механик.</p>
+            <p>📜 Полный список правил в Discord.</p>
         </div>
     </div>
 
     <footer>
-        <i class="fas fa-gear rotate-icon"></i> Technovate — индустриальный стимпанк-сервер. Создано для инженеров, работающих с паром и железом.
+        <i class="fas fa-gear rotate-icon"></i> Technovate — индустриальный стимпанк-сервер.
     </footer>
 </div>
 
 <script>
-    // === ШЕСТЕРЁНКИ И ЧАСТИЦЫ ===
-    const gearContainer = document.getElementById('gearContainer');
-    const gears = ['⚙️', '⚙️', '🔧', '⚙️', '⚙️', '🔩'];
-    for (let i = 0; i < 35; i++) {
-        const gearEl = document.createElement('div');
-        gearEl.classList.add('gear-icon');
-        gearEl.innerHTML = gears[Math.floor(Math.random() * gears.length)];
-        const size = Math.floor(Math.random() * 65) + 25;
-        gearEl.style.fontSize = size + 'px';
-        gearEl.style.left = Math.random() * 100 + '%';
-        gearEl.style.top = Math.random() * 100 + '%';
-        gearEl.style.animationDuration = 15 + Math.random() * 35 + 's';
-        gearEl.style.opacity = Math.random() * 0.15 + 0.03;
-        gearContainer.appendChild(gearEl);
+    // несколько лёгких шестерёнок (без тяжёлых циклов)
+    const gearContainer = document.getElementById('lightGears');
+    const gearChars = ['⚙️', '⚙️', '🔧', '⚙️'];
+    for (let i = 0; i < 12; i++) {
+        const g = document.createElement('div');
+        g.className = 'light-gear';
+        g.innerHTML = gearChars[i % gearChars.length];
+        const size = 30 + Math.floor(Math.random() * 40);
+        g.style.fontSize = size + 'px';
+        g.style.left = Math.random() * 100 + '%';
+        g.style.top = Math.random() * 100 + '%';
+        g.style.animationDuration = 20 + Math.random() * 30 + 's';
+        g.style.opacity = 0.1 + Math.random() * 0.1;
+        gearContainer.appendChild(g);
     }
 
-    const particleField = document.getElementById('particleField');
-    for (let i = 0; i < 70; i++) {
-        const p = document.createElement('div');
-        p.classList.add('particle');
-        const s = Math.random() * 7 + 2;
-        p.style.width = s + 'px';
-        p.style.height = s + 'px';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.animationDelay = Math.random() * 18 + 's';
-        p.style.animationDuration = 9 + Math.random() * 14 + 's';
-        particleField.appendChild(p);
-    }
-
-    const sparkField = document.getElementById('sparkField');
-    for (let i = 0; i < 45; i++) {
-        const sp = document.createElement('div');
-        sp.classList.add('spark');
-        sp.style.left = Math.random() * 100 + '%';
-        sp.style.top = Math.random() * 100 + '%';
-        sp.style.animationDelay = Math.random() * 5 + 's';
-        sparkField.appendChild(sp);
-    }
-
-    // === КОНФИГУРАЦИЯ ССЫЛОК (ЗАМЕНИТЕ НА РЕАЛЬНЫЕ) ===
+    // === НАСТРОЙКИ (ЗАМЕНИТЕ НА РЕАЛЬНЫЕ ССЫЛКИ) ===
     const LINKS = {
-        discord: "https://discord.gg/technovate",           // <-- Discord инвайт
-        modpack: "/downloads/technovate-modpack.zip",      // <-- Прямая ссылка на ZIP сборки
-        donate: "https://easydonate.ru/technovate",        // <-- Easy Donate
-        map: "http://5.188.159.239:30331"                  // <-- Карта (уже ваша)
+        discord: "https://discord.gg/technovate",          // Discord инвайт
+        modpack: "/downloads/technovate.zip",             // Прямая ссылка на ZIP сборки
+        donate: "https://easydonate.ru/technovate",       // Easy Donate
+        map: "http://5.188.159.239:30331"                 // Карта (уже ваша)
     };
 
     document.getElementById("discordBtn")?.addEventListener("click", () => window.open(LINKS.discord, "_blank"));
@@ -601,28 +490,28 @@
     document.getElementById("donateLinkInline")?.setAttribute("href", LINKS.donate);
     document.getElementById("mapLink")?.setAttribute("href", LINKS.map);
 
-    // Копирование IP
-    const copyIp = document.getElementById("copyIpTrigger");
+    // копирование IP
+    const copyBtn = document.getElementById("copyIpTrigger");
     const serverIp = "5.188.159.239:30047";
-    copyIp.addEventListener("click", () => {
+    copyBtn.addEventListener("click", () => {
         navigator.clipboard.writeText(serverIp).then(() => {
-            const txt = copyIp.innerText;
-            copyIp.innerText = "✅ IP скопирован!";
-            setTimeout(() => copyIp.innerText = txt, 2000);
-        }).catch(() => alert("Скопируйте IP вручную: " + serverIp));
+            const orig = copyBtn.innerText;
+            copyBtn.innerText = "✅ IP скопирован!";
+            setTimeout(() => copyBtn.innerText = orig, 1500);
+        }).catch(() => alert("Скопируйте IP: " + serverIp));
     });
 
-    // Вкладки
+    // вкладки
     const tabs = document.querySelectorAll('.tab-btn');
-    const panels = {
+    const panes = {
         main: document.getElementById('tab-main'),
         map: document.getElementById('tab-map'),
         rules: document.getElementById('tab-rules')
     };
 
-    function setActiveTab(tabId) {
-        Object.values(panels).forEach(p => p?.classList.remove('active-pane'));
-        if (panels[tabId]) panels[tabId].classList.add('active-pane');
+    function switchTab(tabId) {
+        Object.values(panes).forEach(p => p?.classList.remove('active-pane'));
+        if (panes[tabId]) panes[tabId].classList.add('active-pane');
         tabs.forEach(btn => {
             btn.classList.remove('active');
             if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
@@ -632,11 +521,11 @@
     tabs.forEach(btn => {
         btn.addEventListener('click', () => {
             const id = btn.getAttribute('data-tab');
-            if (id === 'main') setActiveTab('main');
-            else if (id === 'map') setActiveTab('map');
-            else if (id === 'rules') setActiveTab('rules');
+            if (id === 'main') switchTab('main');
+            else if (id === 'map') switchTab('map');
+            else if (id === 'rules') switchTab('rules');
         });
     });
 </script>
 </body>
-            </html>
+    </html>
