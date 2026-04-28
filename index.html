@@ -7,18 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #0a0705;
-            font-family: 'Inter', sans-serif;
-            color: #ede3d4;
-            overflow-x: hidden;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0705; font-family: 'Inter', sans-serif; color: #ede3d4; overflow-x: hidden; }
 
         /* фиксированный фон */
         .static-bg {
@@ -42,7 +32,7 @@
             background: radial-gradient(circle at 30% 20%, rgba(15, 8, 4, 0.8), rgba(0, 0, 0, 0.92));
         }
 
-        /* ШЕСТЕРЁНКИ — ИСПРАВЛЕНЫ И ТОЧНО БУДУТ ВИДНЫ */
+        /* ШЕСТЕРЁНКИ — УВЕЛИЧЕНЫ И ТОЧНО ВИДНЫ */
         .gears-layer {
             position: fixed;
             top: 0;
@@ -51,14 +41,14 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.35;
+            opacity: 0.4;
         }
 
         .gear {
             position: absolute;
             font-size: 55px;
             color: #e5a24d;
-            text-shadow: 0 0 5px rgba(255,200,100,0.5);
+            text-shadow: 0 0 8px rgba(255,180,70,0.6);
             will-change: transform;
             transform: translateZ(0);
             animation: spinGear 22s linear infinite;
@@ -69,7 +59,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ИСКРЫ — БОЛЕЕ ВЫРАЖЕННЫЕ, ЯРКИЕ */
+        /* ИСКРЫ — БОЛЕЕ ВЫРАЖЕННЫЕ */
         .sparks-layer {
             position: fixed;
             top: 0;
@@ -82,21 +72,21 @@
 
         .spark {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
             background: radial-gradient(circle, #ffdd99, #ffaa33);
             border-radius: 50%;
             opacity: 0;
-            box-shadow: 0 0 6px #ffaa44;
+            box-shadow: 0 0 8px #ffaa44;
             will-change: transform, opacity;
             transform: translateZ(0);
-            animation: sparkFade 2.2s infinite ease-out;
+            animation: sparkFade 2s infinite ease-out;
         }
 
         @keyframes sparkFade {
             0% { opacity: 0; transform: scale(0.2) translateY(0); }
-            25% { opacity: 1; transform: scale(1.2) translateY(-6px); }
-            100% { opacity: 0; transform: scale(0.3) translateY(-18px); }
+            30% { opacity: 1; transform: scale(1.2) translateY(-8px); }
+            100% { opacity: 0; transform: scale(0.3) translateY(-20px); }
         }
 
         .content {
@@ -108,11 +98,7 @@
         }
 
         /* Hero */
-        .hero {
-            text-align: center;
-            margin: 0.5rem 0 1rem;
-        }
-
+        .hero { text-align: center; margin: 0.5rem 0 1rem; }
         .hero h1 {
             font-family: 'Space Grotesk', monospace;
             font-size: clamp(2.8rem, 12vw, 6rem);
@@ -125,7 +111,6 @@
             text-shadow: 0 0 15px rgba(220, 120, 30, 0.5);
             margin-bottom: 0.5rem;
         }
-
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -138,7 +123,6 @@
             font-size: 0.85rem;
             font-weight: 500;
         }
-
         .ip-card {
             background: rgba(0, 0, 0, 0.55);
             backdrop-filter: blur(12px);
@@ -152,13 +136,7 @@
             margin-top: 1.2rem;
             border: 1px solid #d6964b;
         }
-
-        .ip-text {
-            font-family: monospace;
-            font-size: clamp(0.9rem, 4vw, 1.2rem);
-            font-weight: 600;
-        }
-
+        .ip-text { font-family: monospace; font-size: clamp(0.9rem, 4vw, 1.2rem); font-weight: 600; }
         .copy-btn {
             background: #a46d39;
             border: none;
@@ -170,7 +148,6 @@
             cursor: pointer;
             transition: 0.15s;
         }
-
         .copy-btn:active { transform: scale(0.97); }
 
         /* табы */
@@ -181,7 +158,6 @@
             flex-wrap: wrap;
             gap: 0.6rem;
         }
-
         .tab-btn {
             background: rgba(20, 15, 10, 0.65);
             backdrop-filter: blur(6px);
@@ -195,28 +171,15 @@
             cursor: pointer;
             transition: 0.15s;
         }
-
         .tab-btn i { margin-right: 6px; }
-
         .tab-btn.active {
             background: #d78f48;
             color: #0d0804;
             border-color: #ffcf8a;
         }
-
-        .tab-pane {
-            display: none;
-            animation: fadeIn 0.25s ease;
-        }
-
-        .tab-pane.active-pane {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .tab-pane { display: none; animation: fadeIn 0.25s ease; }
+        .tab-pane.active-pane { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
         /* карточки */
         .glass-card {
@@ -229,7 +192,6 @@
             border-right: 1px solid #a56f38;
             box-shadow: 0 10px 25px -8px black;
         }
-
         .glass-card h2 {
             font-family: 'Space Grotesk', monospace;
             font-size: clamp(1.3rem, 5vw, 1.8rem);
@@ -240,7 +202,6 @@
             gap: 10px;
             flex-wrap: wrap;
         }
-
         .feature-tag {
             background: #2b1f18d9;
             border-radius: 50px;
@@ -251,13 +212,7 @@
             border: 1px solid #ca8542;
         }
 
-        /* Стили для блоков со ссылками (Discord, сборка, донат) */
-        .bottom-links {
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #b67a4260;
-        }
-
+        /* БОЛЬШИЕ КНОПКИ (остались на главной) */
         .action-panel {
             display: flex;
             flex-wrap: wrap;
@@ -265,7 +220,6 @@
             gap: 1.2rem;
             margin: 1.5rem 0;
         }
-
         .action-block {
             background: #1a1410;
             border-radius: 1.5rem;
@@ -276,28 +230,14 @@
             cursor: pointer;
             border-bottom: 2px solid #bc7b3c;
         }
-
         .action-block:hover {
             transform: translateY(-3px);
             background: #241d18;
             border-bottom-color: #e7a554;
         }
-
-        .action-block i {
-            font-size: 2.2rem;
-            color: #e7a452;
-            margin-bottom: 0.4rem;
-        }
-
-        .action-block h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-
-        .action-block p {
-            font-size: 0.7rem;
-        }
-
+        .action-block i { font-size: 2.2rem; color: #e7a452; margin-bottom: 0.4rem; }
+        .action-block h3 { font-size: 1.3rem; font-weight: 700; }
+        .action-block p { font-size: 0.7rem; }
         .mini-btn {
             background: #b1763dd9;
             margin-top: 0.5rem;
@@ -308,6 +248,12 @@
             display: inline-block;
         }
 
+        /* МАЛЕНЬКИЕ ССЫЛКИ (для карты и правил) */
+        .bottom-links {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #b67a4260;
+        }
         .link-row {
             display: flex;
             flex-wrap: wrap;
@@ -315,7 +261,6 @@
             gap: 1rem;
             margin: 1rem 0;
         }
-
         .link-chip {
             background: #1f1611b3;
             backdrop-filter: blur(4px);
@@ -330,7 +275,6 @@
             font-size: 0.8rem;
             border: 1px solid #b87a45;
         }
-
         .link-chip:hover {
             background: #b47d49b3;
             color: #fff5e6;
@@ -346,9 +290,7 @@
             border: 1px solid #d6964b;
             transition: 0.15s;
         }
-        .map-link-card:hover {
-            background: rgba(0, 0, 0, 0.7);
-        }
+        .map-link-card:hover { background: rgba(0, 0, 0, 0.7); }
         .map-link-card a {
             font-size: clamp(1rem, 4vw, 1.4rem);
             font-weight: 700;
@@ -375,16 +317,8 @@
             border-top: 1px solid #7e603d60;
             padding-top: 1.5rem;
         }
-
-        .rotate-icon {
-            animation: spinSlow 15s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes spinSlow {
-            from { transform: rotate(0deg);}
-            to { transform: rotate(360deg);}
-        }
+        .rotate-icon { animation: spinSlow 15s linear infinite; display: inline-block; }
+        @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         @media (max-width: 640px) {
             .content { padding: 0.8rem 1rem 2rem; }
@@ -425,7 +359,7 @@
         <button class="tab-btn" data-tab="rules"><i class="fas fa-scroll"></i> Правила</button>
     </div>
 
-    <!-- ВКЛАДКА О СЕРВЕРЕ (без ссылок внизу — они только на карте и правилах) -->
+    <!-- ГЛАВНАЯ (большие кнопки здесь) -->
     <div id="tab-main" class="tab-pane active-pane">
         <div class="glass-card">
             <h2><i class="fas fa-microchip"></i> Technovate — территория инженеров</h2>
@@ -437,10 +371,31 @@
                 <span class="feature-tag">🏭 Технические ивенты</span>
             </div>
         </div>
-        <!-- На главной больше нет блоков discord/сборка/донат -->
+
+        <!-- БОЛЬШИЕ КНОПКИ НА ГЛАВНОЙ -->
+        <div class="action-panel">
+            <div class="action-block" id="discordBtn">
+                <i class="fab fa-discord"></i>
+                <h3>Discord</h3>
+                <p>Гайды, чертежи</p>
+                <div class="mini-btn">Присоединиться →</div>
+            </div>
+            <div class="action-block" id="modpackBtn">
+                <i class="fas fa-download"></i>
+                <h3>Сборка</h3>
+                <p>ZIP-архив</p>
+                <div class="mini-btn">Скачать →</div>
+            </div>
+            <div class="action-block" id="donateBtn">
+                <i class="fas fa-gift"></i>
+                <h3>Донат</h3>
+                <p>Easy Donate</p>
+                <div class="mini-btn">Поддержать →</div>
+            </div>
+        </div>
     </div>
 
-    <!-- ВКЛАДКА КАРТА МИРА + БЛОКИ ССЫЛОК ВНИЗУ -->
+    <!-- КАРТА (только маленькие ссылки внизу) -->
     <div id="tab-map" class="tab-pane">
         <div class="glass-card">
             <h2><i class="fas fa-map-marked-alt"></i> Живая карта мира</h2>
@@ -453,28 +408,8 @@
             </div>
             <p style="font-size: 0.75rem; text-align: center;"><i class="fas fa-location-dot"></i> Dynmap — смотрите за территорией прямо в браузере.</p>
         </div>
-        <!-- ПЕРЕНЕСЁННЫЕ БЛОКИ (внизу карты) -->
+        <!-- ТОЛЬКО МАЛЕНЬКИЕ ССЫЛКИ -->
         <div class="bottom-links">
-            <div class="action-panel">
-                <div class="action-block" id="discordBtnMap">
-                    <i class="fab fa-discord"></i>
-                    <h3>Discord</h3>
-                    <p>Гайды, чертежи</p>
-                    <div class="mini-btn">Присоединиться →</div>
-                </div>
-                <div class="action-block" id="modpackBtnMap">
-                    <i class="fas fa-download"></i>
-                    <h3>Сборка</h3>
-                    <p>ZIP-архив</p>
-                    <div class="mini-btn">Скачать →</div>
-                </div>
-                <div class="action-block" id="donateBtnMap">
-                    <i class="fas fa-gift"></i>
-                    <h3>Донат</h3>
-                    <p>Easy Donate</p>
-                    <div class="mini-btn">Поддержать →</div>
-                </div>
-            </div>
             <div class="link-row">
                 <a href="#" id="discordLinkMap" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
                 <a href="#" id="modpackLinkMap" class="link-chip"><i class="fas fa-box-open"></i> Скачать сборку (ZIP)</a>
@@ -483,7 +418,7 @@
         </div>
     </div>
 
-    <!-- ВКЛАДКА ПРАВИЛА + БЛОКИ ССЫЛОК ВНИЗУ -->
+    <!-- ПРАВИЛА (только маленькие ссылки внизу) -->
     <div id="tab-rules" class="tab-pane">
         <div class="glass-card">
             <h2><i class="fas fa-gavel"></i> Кодекс Technovate</h2>
@@ -496,28 +431,8 @@
             </ul>
             <p>📜 Полный список правил в Discord.</p>
         </div>
-        <!-- ПЕРЕНЕСЁННЫЕ БЛОКИ (внизу правил) -->
+        <!-- ТОЛЬКО МАЛЕНЬКИЕ ССЫЛКИ -->
         <div class="bottom-links">
-            <div class="action-panel">
-                <div class="action-block" id="discordBtnRules">
-                    <i class="fab fa-discord"></i>
-                    <h3>Discord</h3>
-                    <p>Гайды, чертежи</p>
-                    <div class="mini-btn">Присоединиться →</div>
-                </div>
-                <div class="action-block" id="modpackBtnRules">
-                    <i class="fas fa-download"></i>
-                    <h3>Сборка</h3>
-                    <p>ZIP-архив</p>
-                    <div class="mini-btn">Скачать →</div>
-                </div>
-                <div class="action-block" id="donateBtnRules">
-                    <i class="fas fa-gift"></i>
-                    <h3>Донат</h3>
-                    <p>Easy Donate</p>
-                    <div class="mini-btn">Поддержать →</div>
-                </div>
-            </div>
             <div class="link-row">
                 <a href="#" id="discordLinkRules" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
                 <a href="#" id="modpackLinkRules" class="link-chip"><i class="fas fa-box-open"></i> Скачать сборку (ZIP)</a>
@@ -533,60 +448,58 @@
 
 <script>
     (function() {
-        // ========== ШЕСТЕРЁНКИ (12 штук, теперь точно видны) ==========
+        // ШЕСТЕРЁНКИ (16 штук, увеличенные)
         const gearsLayer = document.getElementById('gearsLayer');
         const gearChars = ['⚙️', '⚙️', '🔧', '⚙️', '⚙️', '⚙️', '🔩', '⚙️'];
-        for (let i = 0; i < 14; i++) {  // чуть больше для насыщенности, но не перегружено
+        for (let i = 0; i < 16; i++) {
             const gear = document.createElement('div');
             gear.className = 'gear';
             gear.innerHTML = gearChars[i % gearChars.length];
-            const size = 40 + Math.floor(Math.random() * 55);
+            const size = 45 + Math.floor(Math.random() * 55);
             gear.style.fontSize = size + 'px';
             gear.style.left = Math.random() * 100 + '%';
             gear.style.top = Math.random() * 100 + '%';
-            gear.style.animationDuration = 16 + Math.random() * 28 + 's';
+            gear.style.animationDuration = 18 + Math.random() * 25 + 's';
             gear.style.animationDelay = Math.random() * 6 + 's';
             gear.style.opacity = 0.2 + Math.random() * 0.2;
             gearsLayer.appendChild(gear);
         }
 
-        // ========== ИСКРЫ (20 штук, более выраженные) ==========
+        // ИСКРЫ (28 штук, более заметные)
         const sparksLayer = document.getElementById('sparksLayer');
-        for (let i = 0; i < 24; i++) {
+        for (let i = 0; i < 28; i++) {
             const spark = document.createElement('div');
             spark.className = 'spark';
             spark.style.left = Math.random() * 100 + '%';
             spark.style.top = Math.random() * 100 + '%';
             spark.style.animationDelay = Math.random() * 4 + 's';
             spark.style.animationDuration = 1.4 + Math.random() * 1.8 + 's';
-            spark.style.width = (3 + Math.random() * 3) + 'px';
+            spark.style.width = (4 + Math.random() * 3) + 'px';
             spark.style.height = spark.style.width;
             sparksLayer.appendChild(spark);
         }
 
-        // ========== НАСТРОЙКИ ССЫЛОК (ЗАМЕНИТЕ НА РЕАЛЬНЫЕ) ==========
+        // НАСТРОЙКИ ССЫЛОК (ЗАМЕНИТЕ НА РЕАЛЬНЫЕ)
         const LINKS = {
-            discord: "https://discord.gg/technovate",          // Ваш Discord
-            modpack: "/downloads/technovate.zip",             // Прямая ссылка на ZIP
-            donate: "https://easydonate.ru/technovate",       // Easy Donate
+            discord: "https://discord.gg/technovate",
+            modpack: "/downloads/technovate.zip",
+            donate: "https://easydonate.ru/technovate",
             map: "http://5.188.159.239:30331"
         };
 
-        // Функция привязки кликов для всех однотипных блоков
-        function bindButtons(btnDiscord, btnModpack, btnDonate, linkDiscord, linkModpack, linkDonate) {
-            document.getElementById(btnDiscord)?.addEventListener("click", () => window.open(LINKS.discord, "_blank"));
-            document.getElementById(btnModpack)?.addEventListener("click", () => window.location.href = LINKS.modpack);
-            document.getElementById(btnDonate)?.addEventListener("click", () => window.open(LINKS.donate, "_blank"));
-            document.getElementById(linkDiscord)?.setAttribute("href", LINKS.discord);
-            document.getElementById(linkModpack)?.setAttribute("href", LINKS.modpack);
-            document.getElementById(linkDonate)?.setAttribute("href", LINKS.donate);
-        }
+        // Большие кнопки на главной
+        document.getElementById("discordBtn")?.addEventListener("click", () => window.open(LINKS.discord, "_blank"));
+        document.getElementById("modpackBtn")?.addEventListener("click", () => window.location.href = LINKS.modpack);
+        document.getElementById("donateBtn")?.addEventListener("click", () => window.open(LINKS.donate, "_blank"));
 
-        // Привязываем для карты
-        bindButtons("discordBtnMap", "modpackBtnMap", "donateBtnMap", "discordLinkMap", "modpackLinkMap", "donateLinkMap");
-        // Привязываем для правил
-        bindButtons("discordBtnRules", "modpackBtnRules", "donateBtnRules", "discordLinkRules", "modpackLinkRules", "donateLinkRules");
-        
+        // Маленькие ссылки на карте
+        document.getElementById("discordLinkMap")?.setAttribute("href", LINKS.discord);
+        document.getElementById("modpackLinkMap")?.setAttribute("href", LINKS.modpack);
+        document.getElementById("donateLinkMap")?.setAttribute("href", LINKS.donate);
+        // Маленькие ссылки на правилах
+        document.getElementById("discordLinkRules")?.setAttribute("href", LINKS.discord);
+        document.getElementById("modpackLinkRules")?.setAttribute("href", LINKS.modpack);
+        document.getElementById("donateLinkRules")?.setAttribute("href", LINKS.donate);
         // Карта
         document.getElementById("mapLink")?.setAttribute("href", LINKS.map);
 
@@ -629,4 +542,4 @@
     })();
 </script>
 </body>
-    </html>
+                                                                      </html>
