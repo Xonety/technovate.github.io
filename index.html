@@ -453,7 +453,31 @@
             <p>Исследуйте наш мир в реальном времени: постройки, механизмы и передвижения на карте Dynmap/BlueMap.</p>
             <div class="map-container">
                 <!-- ⬇️⬇️⬇️ ВСТАВЬТЕ ВАШУ ССЫЛКУ НА КАРТУ (пример: https://ваш-домен:8123) ⬇️⬇️⬇️ -->
-                <iframe id="serverMapIframe" class="map-frame" src="https://images.weserv.nl/?url=http://5.188.159.239:30331&output=embed" title="Карта Technovate"></iframe>
+                <iframe id="serverMapIframe" class="map-frame" src="about:blank" title="Карта Technovate"></iframe>
+
+<script>
+  (function() {
+    var iframe = document.getElementById('serverMapIframe');
+    var dynmapURL = 'http://5.188.159.239:30031';
+    
+    // Пытаемся загрузить через http://
+    iframe.src = dynmapURL;
+    
+    // Если браузер блокирует - показываем ссылку
+    setTimeout(function() {
+      try {
+        if (iframe.contentWindow.location.href === 'about:blank') throw new Error();
+      } catch(e) {
+        var container = document.querySelector('.map-container');
+        var warning = document.createElement('div');
+        warning.style.cssText = 'background:#2a1a0a;padding:20px;border-radius:20px;text-align:center;margin-top:10px';
+        warning.innerHTML = '<i class="fas fa-shield-alt"></i> Браузер заблокировал карту (mixed content). ' +
+          '<a href="' + dynmapURL + '" target="_blank" style="color:#f0b15a;">Открыть карту в новой вкладке →</a>';
+        container.appendChild(warning);
+      }
+    }, 1000);
+  })();
+</script>
                 <!-- ↑↑↑ ЗАМЕНИТЕ src на реальный адрес карты (например, http://89.22.11.45:8123) ↑↑↑ -->
             </div>
             <p style="font-size: 0.8rem; text-align: center;"><i class="fas fa-location-dot"></i> Карта обновляется автоматически — смотрите за своими территориями.</p>
