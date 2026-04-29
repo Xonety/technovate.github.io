@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Technovate | Технический сервер Create & Aeronautics</title>
+    <title>Technovate | Технический сервер Create & Aeronautics 1.21.1</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         * {
             margin: 0;
@@ -21,18 +22,6 @@
             min-height: 100vh;
         }
 
-        /* ФИКСИРОВАННЫЙ ФОН, КОТОРЫЙ НЕ ДВИГАЕТСЯ ПРИ СКРОЛЛЕ */
-        .fixed-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* статичное изображение */
         .static-bg {
             position: fixed;
             top: 0;
@@ -54,7 +43,6 @@
             background: radial-gradient(circle at 30% 20%, rgba(15, 8, 4, 0.8), rgba(0, 0, 0, 0.92));
         }
 
-        /* ШЕСТЕРЁНКИ — ТЕПЕРЬ НЕ ДВИГАЮТСЯ ПРИ СКРОЛЛЕ */
         .gears-layer {
             position: fixed;
             top: 0;
@@ -63,7 +51,8 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.45;
+            opacity: 0.35;
+            overflow: hidden;
         }
 
         .gear {
@@ -81,7 +70,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ИСКРЫ — ТОЖЕ НЕ ДВИГАЮТСЯ */
         .sparks-layer {
             position: fixed;
             top: 0;
@@ -90,6 +78,7 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
+            overflow: hidden;
         }
 
         .spark {
@@ -111,42 +100,50 @@
             100% { opacity: 0; transform: scale(0.3) translateY(-20px); }
         }
 
-        /* КОНТЕНТ — ОН ПРОКРУЧИВАЕТСЯ ПОВЕРХ ФИКСИРОВАННОГО ФОНА */
         .content {
             position: relative;
             z-index: 10;
-            max-width: 1300px;
+            max-width: 1000px;
+            width: 92%;
             margin: 0 auto;
-            padding: 1rem 1.5rem 3rem;
-            min-height: 100vh;
+            padding: 1rem 0 3rem;
         }
 
-        /* Hero */
-        .hero { text-align: center; margin: 0.5rem 0 1rem; }
-        .hero h1 {
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 1px solid #d6964b;
+        }
+        .hero-banner img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .banner-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 1.2rem 1.5rem 0.8rem;
+        }
+        .banner-overlay h1 {
             font-family: 'Space Grotesk', monospace;
-            font-size: clamp(2.8rem, 12vw, 6rem);
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
             font-weight: 800;
-            letter-spacing: clamp(4px, 2vw, 14px);
+            letter-spacing: 4px;
             background: linear-gradient(135deg, #ffe0af, #e7a551, #ffd494);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 0 0 15px rgba(220, 120, 30, 0.5);
-            margin-bottom: 0.5rem;
         }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            border-radius: 100px;
-            padding: 0.5rem 1.5rem;
-            border: 1px solid #d6964b;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
+
         .ip-card {
             background: rgba(0, 0, 0, 0.55);
             backdrop-filter: blur(12px);
@@ -157,8 +154,9 @@
             justify-content: center;
             gap: 0.8rem;
             padding: 0.5rem 1.2rem;
-            margin-top: 1.2rem;
+            margin-top: 1rem;
             border: 1px solid #d6964b;
+            width: auto;
         }
         .ip-text { font-family: monospace; font-size: clamp(0.9rem, 4vw, 1.2rem); font-weight: 600; }
         .copy-btn {
@@ -174,11 +172,15 @@
         }
         .copy-btn:active { transform: scale(0.97); }
 
-        /* табы */
+        .hero {
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
         .tabs-wrapper {
             display: flex;
             justify-content: center;
-            margin: 2rem 0 1rem;
+            margin: 1.5rem 0 1.2rem;
             flex-wrap: wrap;
             gap: 0.6rem;
         }
@@ -186,9 +188,9 @@
             background: rgba(20, 15, 10, 0.65);
             backdrop-filter: blur(6px);
             border: 1px solid #bc7a3e;
-            padding: 0.5rem 1.4rem;
+            padding: 0.5rem 1.2rem;
             font-family: 'Space Grotesk', monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: #f0dbbc;
             border-radius: 50px;
@@ -205,20 +207,19 @@
         .tab-pane.active-pane { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* карточки */
         .glass-card {
             background: rgba(20, 16, 12, 0.7);
             backdrop-filter: blur(8px);
             border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin: 1rem 0 1.5rem;
+            padding: 1.3rem;
+            margin-bottom: 1.2rem;
             border-left: 4px solid #de9b4a;
             border-right: 1px solid #a56f38;
             box-shadow: 0 10px 25px -8px black;
         }
         .glass-card h2 {
             font-family: 'Space Grotesk', monospace;
-            font-size: clamp(1.3rem, 5vw, 1.8rem);
+            font-size: clamp(1.2rem, 5vw, 1.6rem);
             color: #fbcf8c;
             margin-bottom: 0.8rem;
             display: flex;
@@ -226,30 +227,80 @@
             gap: 10px;
             flex-wrap: wrap;
         }
+        .glass-card h3 {
+            font-size: 1.2rem;
+            color: #fbcf8c;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
         .feature-tag {
             background: #2b1f18d9;
             border-radius: 50px;
-            padding: 0.3rem 1rem;
-            font-size: 0.75rem;
+            padding: 0.25rem 0.9rem;
+            font-size: 0.7rem;
             display: inline-block;
             margin: 0.2rem 0.4rem 0 0;
             border: 1px solid #ca8542;
         }
 
-        /* БОЛЬШИЕ КНОПКИ */
+        .swiper {
+            width: 100%;
+            height: auto;
+            border-radius: 1.2rem;
+            overflow: hidden;
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+        .swiper-pagination-bullet { background: #e7aa5e; }
+        .swiper-pagination-bullet-active { background: #f5bc6e; }
+        .swiper-button-next, .swiper-button-prev {
+            color: #e7aa5e;
+            background: rgba(0,0,0,0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        @media (max-width: 640px) {
+            .swiper-slide img { height: 180px; }
+            .swiper-button-next, .swiper-button-prev { display: none; }
+            .content { width: 94%; padding: 0.5rem 0 2rem; }
+            .glass-card { padding: 1rem; }
+        }
+
+        .mods-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+        .mod-item {
+            background: #1f1611b3;
+            border-radius: 2rem;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid #b87a45;
+        }
         .action-panel {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.2rem;
-            margin: 1.5rem 0;
+            gap: 1rem;
+            margin: 1.2rem 0;
         }
         .action-block {
             background: #1a1410;
-            border-radius: 1.5rem;
-            padding: 1.2rem;
+            border-radius: 1.3rem;
+            padding: 0.9rem;
             text-align: center;
-            width: min(180px, 75vw);
+            width: min(160px, 40vw);
             transition: 0.15s;
             cursor: pointer;
             border-bottom: 2px solid #bc7b3c;
@@ -259,118 +310,100 @@
             background: #241d18;
             border-bottom-color: #e7a554;
         }
-        .action-block i { font-size: 2.2rem; color: #e7a452; margin-bottom: 0.4rem; }
-        .action-block h3 { font-size: 1.3rem; font-weight: 700; }
-        .action-block p { font-size: 0.7rem; }
+        .action-block i { font-size: 1.8rem; color: #e7a452; margin-bottom: 0.3rem; }
+        .action-block h3 { font-size: 1.1rem; font-weight: 700; }
         .mini-btn {
             background: #b1763dd9;
-            margin-top: 0.5rem;
-            padding: 0.3rem 1rem;
+            margin-top: 0.4rem;
+            padding: 0.2rem 0.8rem;
             border-radius: 50px;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: 600;
             display: inline-block;
         }
-
-        /* МАЛЕНЬКИЕ ССЫЛКИ */
+        .map-link-card {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 1.2rem;
+            padding: 1rem;
+            text-align: center;
+            margin: 0.8rem 0;
+            border: 1px solid #d6964b;
+        }
+        .map-link-card a {
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
+            font-weight: 700;
+            color: #ffdead;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2f241bb3;
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+        }
         .bottom-links {
-            margin-top: 1.5rem;
-            padding-top: 1rem;
+            margin-top: 1rem;
+            padding-top: 0.8rem;
             border-top: 1px solid #b67a4260;
         }
         .link-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem;
-            margin: 1rem 0;
+            gap: 0.8rem;
+            margin: 0.8rem 0;
         }
         .link-chip {
             background: #1f1611b3;
             backdrop-filter: blur(4px);
-            padding: 0.5rem 1.2rem;
+            padding: 0.3rem 0.9rem;
             border-radius: 50px;
             text-decoration: none;
             color: #f7e0bb;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            transition: 0.15s;
-            font-size: 0.8rem;
+            gap: 5px;
+            font-size: 0.7rem;
             border: 1px solid #b87a45;
         }
-        .link-chip:hover {
-            background: #b47d49b3;
-            color: #fff5e6;
-        }
-
-        /* ссылка на карту */
-        .map-link-card {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            text-align: center;
-            margin: 1rem 0;
-            border: 1px solid #d6964b;
-            transition: 0.15s;
-        }
-        .map-link-card:hover { background: rgba(0, 0, 0, 0.7); }
-        .map-link-card a {
-            font-size: clamp(1rem, 4vw, 1.4rem);
-            font-weight: 700;
-            color: #ffdead;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: #2f241bb3;
-            padding: 0.6rem 1.5rem;
-            border-radius: 60px;
-            transition: 0.15s;
-        }
-        .map-link-card a:hover {
-            background: #c5823f;
-            color: #1f160f;
-        }
-
         footer {
             margin-top: 2rem;
             text-align: center;
             opacity: 0.6;
             font-size: 0.65rem;
             border-top: 1px solid #7e603d60;
-            padding-top: 1.5rem;
+            padding-top: 1.2rem;
         }
         .rotate-icon { animation: spinSlow 15s linear infinite; display: inline-block; }
         @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        @media (max-width: 640px) {
-            .content { padding: 0.8rem 1rem 2rem; }
-            .glass-card { padding: 1rem; }
-            .action-block { padding: 0.8rem; width: 140px; }
-            .action-block i { font-size: 1.8rem; }
-            .action-block h3 { font-size: 1.1rem; }
-            .tab-btn { padding: 0.35rem 0.9rem; font-size: 0.75rem; }
-            .gear { font-size: 35px; }
-            .spark { width: 3px; height: 3px; }
+        .support-note {
+            background: #1f1611b3;
+            border-radius: 1rem;
+            padding: 0.8rem;
+            margin-top: 0.8rem;
+            text-align: center;
+            font-size: 0.75rem;
+            border: 1px solid #b87a45;
         }
+        .support-note i { color: #e7aa5e; margin-right: 6px; }
     </style>
 </head>
 <body>
 
-<!-- ВСЕ ФОНОВЫЕ ЭЛЕМЕНТЫ СТАТИЧНЫ И НЕ ПРОКРУЧИВАЮТСЯ -->
 <div class="static-bg"></div>
 <div class="dark-overlay"></div>
 <div class="gears-layer" id="gearsLayer"></div>
 <div class="sparks-layer" id="sparksLayer"></div>
 
 <div class="content">
-    <div class="hero">
-        <h1>TECHNOVATE</h1>
-        <div class="hero-badge">
-            <i class="fas fa-cogs rotate-icon"></i>
-            <span>CREATE · AERONAUTICS · ПАРОВАЯ ЭПОХА</span>
+    <div class="hero-banner">
+        <img src="https://i.postimg.cc/httBRtcH/Chat-GPT-Image-29-apr-2026-g-09-43-12.png" alt="Technovate Banner">
+        <div class="banner-overlay">
+            <h1>TECHNOVATE</h1>
         </div>
+    </div>
+
+    <div class="hero">
         <div class="ip-card">
             <i class="fas fa-globe"></i>
             <span class="ip-text">5.188.159.239:30047</span>
@@ -381,62 +414,100 @@
     <div class="tabs-wrapper">
         <button class="tab-btn active" data-tab="main"><i class="fas fa-microchip"></i> О сервере</button>
         <button class="tab-btn" data-tab="map"><i class="fas fa-map"></i> Карта мира</button>
+        <button class="tab-btn" data-tab="mods"><i class="fas fa-cubes"></i> Моды</button>
         <button class="tab-btn" data-tab="rules"><i class="fas fa-scroll"></i> Правила</button>
+        <button class="tab-btn" data-tab="support"><i class="fas fa-headset"></i> Техподдержка</button>
     </div>
 
     <!-- ГЛАВНАЯ -->
     <div id="tab-main" class="tab-pane active-pane">
         <div class="glass-card">
-            <h2><i class="fas fa-microchip"></i> Technovate — территория инженеров</h2>
-            <p>Механическое сердце вселенной <strong>Create + Create Aeronautics</strong>. Здесь пар и шестерёнки правят балом, а небесные линкоры и автоматизированные заводы — реальность. Строй дирижабли, конвейеры и становись легендой стимпанк-инженерии.</p>
+            <h2><i class="fas fa-microchip"></i> О сервере</h2>
+            <p>Механическое сердце вселенной <strong>Create + Create Aeronautics</strong> на версии <strong>1.21.1 NeoForge</strong>. Здесь пар и шестерёнки правят балом, а небесные линкоры и автоматизированные заводы — реальность.</p>
             <div style="margin: 0.8rem 0 0;">
-                <span class="feature-tag">⚙️ Create 0.5.1 + Aeronautics</span>
+                <span class="feature-tag">⚙️ Create 6.0.10 + Aeronautics</span>
                 <span class="feature-tag">✈️ Физические корабли</span>
                 <span class="feature-tag">🧲 Защита территорий</span>
                 <span class="feature-tag">🏭 Технические ивенты</span>
             </div>
         </div>
 
+        <div class="glass-card">
+            <h3><i class="fas fa-images"></i> Галерея сервера</h3>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="" alt="Механизмы Create" onerror="this.src='https://via.placeholder.com/800x400?text=Create+Mechanisms'"></div>
+                    <div class="swiper-slide"><img src="" alt="Steampunk Factory" onerror="this.src='https://via.placeholder.com/800x400?text=Steampunk+Factory'"></div>
+                    <div class="swiper-slide"><img src="" alt="Airship" onerror="this.src='https://via.placeholder.com/800x400?text=Airship'"></div>
+                    <div class="swiper-slide"><img src="" alt="Gears and Steam" onerror="this.src='https://via.placeholder.com/800x400?text=Gears+and+Steam'"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h3><i class="fas fa-newspaper"></i> Последние новости</h3>
+            <p>🔧 <strong>Сервер запущен на версии 1.21.1!</strong> Все моды обновлены.</p>
+            <p style="margin-top: 8px;">⚡ <strong>Ивент «Воздушные гонки»</strong> — в субботу в 18:00 МСК.</p>
+            <p style="margin-top: 8px;">📢 <strong>Набор в команду</strong> — ищем помощников администратора.</p>
+        </div>
+
         <div class="action-panel">
-            <div class="action-block" id="discordBtn">
-                <i class="fab fa-discord"></i>
-                <h3>Discord</h3>
-                <p>Гайды, чертежи</p>
-                <div class="mini-btn">Присоединиться →</div>
-            </div>
-            <div class="action-block" id="modpackBtn">
-                <i class="fas fa-download"></i>
-                <h3>Сборка</h3>
-                <p>ZIP-архив</p>
-                <div class="mini-btn">Скачать →</div>
-            </div>
-            <div class="action-block" id="donateBtn">
-                <i class="fas fa-gift"></i>
-                <h3>Донат</h3>
-                <p>Easy Donate</p>
-                <div class="mini-btn">Поддержать →</div>
-            </div>
+            <div class="action-block" id="discordBtn"><i class="fab fa-discord"></i><h3>Discord</h3><div class="mini-btn">Присоединиться →</div></div>
+            <div class="action-block" id="modpackBtn"><i class="fas fa-download"></i><h3>Сборка</h3><div class="mini-btn">Скачать →</div></div>
+            <div class="action-block" id="donateBtn"><i class="fas fa-gift"></i><h3>Донат</h3><div class="mini-btn">Поддержать →</div></div>
         </div>
     </div>
 
-    <!-- КАРТА -->
+    <!-- КАРТА МИРА -->
     <div id="tab-map" class="tab-pane">
         <div class="glass-card">
             <h2><i class="fas fa-map-marked-alt"></i> Живая карта мира</h2>
-            <p>Исследуйте наш мир в реальном времени: постройки, механизмы и приключения.</p>
+            <p>Исследуйте наш мир в реальном времени.</p>
             <div class="map-link-card">
                 <a href="http://5.188.159.239:30331" target="_blank" id="mapLink">
-                    <i class="fas fa-external-link-alt"></i> Открыть карту мира
+                    <i class="fas fa-external-link-alt"></i> Открыть карту Dynmap
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
-            <p style="font-size: 0.75rem; text-align: center;"><i class="fas fa-location-dot"></i> Dynmap — смотрите за территорией прямо в браузере.</p>
         </div>
         <div class="bottom-links">
             <div class="link-row">
                 <a href="#" id="discordLinkMap" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
-                <a href="#" id="modpackLinkMap" class="link-chip"><i class="fas fa-box-open"></i> Скачать сборку (ZIP)</a>
-                <a href="#" id="donateLinkMap" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru/technovate</a>
+                <a href="#" id="modpackLinkMap" class="link-chip"><i class="fas fa-box-open"></i> Скачать сборку</a>
+                <a href="#" id="donateLinkMap" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДЫ -->
+    <div id="tab-mods" class="tab-pane">
+        <div class="glass-card">
+            <h2><i class="fas fa-cubes"></i> Основные моды (1.21.1)</h2>
+            <div class="mods-grid">
+                <div class="mod-item"><i class="fas fa-cog"></i> Create 6.0.10</div>
+                <div class="mod-item"><i class="fas fa-fan"></i> Create Aeronautics</div>
+                <div class="mod-item"><i class="fas fa-gun"></i> Create Big Cannons</div>
+                <div class="mod-item"><i class="fas fa-building"></i> Interiors</div>
+                <div class="mod-item"><i class="fas fa-gem"></i> Jade</div>
+                <div class="mod-item"><i class="fas fa-database"></i> JEI</div>
+                <div class="mod-item"><i class="fas fa-cogs"></i> Sable</div>
+                <div class="mod-item"><i class="fas fa-plug"></i> Create Connected</div>
+            </div>
+        </div>
+        <div class="glass-card">
+            <h3><i class="fas fa-download"></i> Установка сборки</h3>
+            <p>1. Скачайте ZIP-архив.<br>2. Распакуйте в <code>.minecraft/versions/</code>.<br>3. Запустите профиль Technovate (NeoForge).<br><strong>Рекомендуем 6-8 ГБ ОЗУ.</strong></p>
+            <div class="action-block" id="modpackBtnMods" style="margin-top: 0.8rem; width: auto; display: inline-block; padding: 0.5rem 1rem;">
+                <i class="fas fa-download"></i> Скачать сборку
+            </div>
+        </div>
+        <div class="bottom-links">
+            <div class="link-row">
+                <a href="#" id="discordLinkMods" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
+                <a href="#" id="donateLinkMods" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru</a>
             </div>
         </div>
     </div>
@@ -446,19 +517,52 @@
         <div class="glass-card">
             <h2><i class="fas fa-gavel"></i> Кодекс Technovate</h2>
             <ul style="margin-left: 1rem; list-style: none;">
-                <li style="margin-bottom: 0.7rem;">⚙️ <strong>Уважение к механизмам</strong> — гриферство и кражи запрещены.</li>
-                <li style="margin-bottom: 0.7rem;">✈️ <strong>Aeronautics:</strong> корабли не должны создавать лаги сервера.</li>
-                <li style="margin-bottom: 0.7rem;">🔧 <strong>Честная игра</strong> — читы, дюпы = перманентный бан.</li>
-                <li style="margin-bottom: 0.7rem;">🏭 <strong>Строительство:</strong> не застраивать спавн, отступ 75 блоков.</li>
-                <li style="margin-bottom: 0.7rem;">📢 <strong>Общение:</strong> без токсичности и оскорблений.</li>
+                <li>⚙️ Уважение к механизмам — гриферство запрещено.</li>
+                <li>✈️ Aeronautics: корабли не более 400 блоков.</li>
+                <li>🔧 Читы, дюпы, эксплойты = бан.</li>
+                <li>🏭 Не застраивать спавн, отступ 75 блоков.</li>
+                <li>📢 Общение без токсичности.</li>
+                <li>💎 Донат — только косметика.</li>
+                <li>Полный список правил находится в нашем Discord сообществе</li>
             </ul>
-            <p>📜 Полный список правил в Discord.</p>
+        </div>
+        <div class="glass-card">
+            <h3><i class="fas fa-shield-alt"></i> Как получить защиту</h3>
+            <p>Золотая лопата — выделить территорию. <code>/trust</code> — добавить игрока.</p>
         </div>
         <div class="bottom-links">
             <div class="link-row">
                 <a href="#" id="discordLinkRules" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
-                <a href="#" id="modpackLinkRules" class="link-chip"><i class="fas fa-box-open"></i> Скачать сборку (ZIP)</a>
-                <a href="#" id="donateLinkRules" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru/technovate</a>
+                <a href="#" id="modpackLinkRules" class="link-chip"><i class="fas fa-box-open"></i> Скачать сборку</a>
+                <a href="#" id="donateLinkRules" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- НОВАЯ ВКЛАДКА: ТЕХПОДДЕРЖКА -->
+    <div id="tab-support" class="tab-pane">
+        <div class="glass-card">
+            <h2><i class="fas fa-headset"></i> Техническая поддержка</h2>
+            <p>Все вопросы, связанные с сервером, сборкой модов, приватами, багами и другими проблемами, решаются в нашем Discord-сообществе.</p>
+            <div class="support-note">
+                <i class="fab fa-discord"></i> <strong>Поддержка осуществляется исключительно в Discord</strong><br>
+                Присоединяйтесь к серверу, откройте тикет в канале <strong>#помощь</strong> или <strong>#тикеты</strong>, и администраторы помогут вам.
+            </div>
+            <div class="action-block" id="supportDiscordBtn" style="margin-top: 1rem; width: auto; display: inline-block; padding: 0.5rem 1rem;">
+                <i class="fab fa-discord"></i> Перейти в Discord
+            </div>
+        </div>
+        <div class="glass-card">
+            <h3><i class="fas fa-question-circle"></i> Частые вопросы</h3>
+            <p><strong>❓ Не заходит на сервер?</strong> — Проверьте версию сборки и установите NeoForge 1.21.1.</p>
+            <p><strong>❓ Лагают механизмы?</strong> — Оптимизируйте постройки, избегайте спама вращением.</p>
+            <p><strong>❓ Как получить приват?</strong> — Используйте золотую лопату, чтобы выделить территорию.</p>
+            <p><strong>❓ Хочу помочь серверу?</strong> — Присоединяйтесь к команде или поддержите донатом.</p>
+        </div>
+        <div class="bottom-links">
+            <div class="link-row">
+                <a href="#" id="discordLinkSupport" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
+                <a href="#" id="donateLinkSupport" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru</a>
             </div>
         </div>
     </div>
@@ -468,40 +572,72 @@
     </footer>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     (function() {
-        // ШЕСТЕРЁНКИ (16 штук)
+        // Шестерёнки
+        function placeAllGears() {
+            const gears = document.querySelectorAll('.gear');
+            const container = document.getElementById('gearsLayer');
+            if (!container) return;
+            const rect = container.getBoundingClientRect();
+            gears.forEach(gear => {
+                const size = parseInt(gear.style.fontSize) || 55;
+                let left = Math.random() * (rect.width - size);
+                let top = Math.random() * (rect.height - size);
+                left = Math.max(0, Math.min(left, rect.width - size));
+                top = Math.max(0, Math.min(top, rect.height - size));
+                gear.style.left = left + 'px';
+                gear.style.top = top + 'px';
+            });
+        }
+
         const gearsLayer = document.getElementById('gearsLayer');
         const gearChars = ['⚙️', '⚙️', '🔧', '⚙️', '⚙️', '⚙️', '🔩', '⚙️'];
-        for (let i = 0; i < 16; i++) {
+        for (let i = 0; i < 14; i++) {
             const gear = document.createElement('div');
             gear.className = 'gear';
             gear.innerHTML = gearChars[i % gearChars.length];
             const size = 45 + Math.floor(Math.random() * 55);
             gear.style.fontSize = size + 'px';
-            gear.style.left = Math.random() * 100 + '%';
-            gear.style.top = Math.random() * 100 + '%';
             gear.style.animationDuration = 18 + Math.random() * 25 + 's';
             gear.style.animationDelay = Math.random() * 6 + 's';
-            gear.style.opacity = 0.2 + Math.random() * 0.2;
+            gear.style.opacity = 0.15 + Math.random() * 0.15;
             gearsLayer.appendChild(gear);
         }
+        setTimeout(placeAllGears, 50);
+        window.addEventListener('resize', placeAllGears);
 
-        // ИСКРЫ (28 штук)
+        // Искры
         const sparksLayer = document.getElementById('sparksLayer');
-        for (let i = 0; i < 28; i++) {
+        for (let i = 0; i < 25; i++) {
             const spark = document.createElement('div');
             spark.className = 'spark';
-            spark.style.left = Math.random() * 100 + '%';
-            spark.style.top = Math.random() * 100 + '%';
+            const updatePos = () => {
+                const rect = sparksLayer.getBoundingClientRect();
+                let left = Math.random() * rect.width;
+                let top = Math.random() * rect.height;
+                spark.style.left = Math.max(5, Math.min(left, rect.width - 10)) + 'px';
+                spark.style.top = Math.max(5, Math.min(top, rect.height - 10)) + 'px';
+            };
+            updatePos();
             spark.style.animationDelay = Math.random() * 4 + 's';
             spark.style.animationDuration = 1.4 + Math.random() * 1.8 + 's';
-            spark.style.width = (4 + Math.random() * 3) + 'px';
+            spark.style.width = (3 + Math.random() * 3) + 'px';
             spark.style.height = spark.style.width;
             sparksLayer.appendChild(spark);
+            window.addEventListener('resize', updatePos);
         }
 
-        // НАСТРОЙКИ ССЫЛОК (ЗАМЕНИТЕ НА РЕАЛЬНЫЕ)
+        // ГАЛЕРЕЯ
+        new Swiper('.mySwiper', {
+            loop: true,
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            autoplay: { delay: 5000, disableOnInteraction: false },
+        });
+
+        // ССЫЛКИ
         const LINKS = {
             discord: "https://discord.gg/technovate",
             modpack: "/downloads/technovate.zip",
@@ -509,41 +645,42 @@
             map: "http://5.188.159.239:30331"
         };
 
-        // Большие кнопки на главной
-        document.getElementById("discordBtn")?.addEventListener("click", () => window.open(LINKS.discord, "_blank"));
-        document.getElementById("modpackBtn")?.addEventListener("click", () => window.location.href = LINKS.modpack);
-        document.getElementById("donateBtn")?.addEventListener("click", () => window.open(LINKS.donate, "_blank"));
+        function bindClick(id, url, blank = true) {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener("click", () => blank ? window.open(url, "_blank") : location.href = url);
+        }
+        bindClick("discordBtn", LINKS.discord);
+        bindClick("modpackBtn", LINKS.modpack, false);
+        bindClick("modpackBtnMods", LINKS.modpack, false);
+        bindClick("donateBtn", LINKS.donate);
+        bindClick("supportDiscordBtn", LINKS.discord);
 
-        // Маленькие ссылки на карте
-        document.getElementById("discordLinkMap")?.setAttribute("href", LINKS.discord);
-        document.getElementById("modpackLinkMap")?.setAttribute("href", LINKS.modpack);
-        document.getElementById("donateLinkMap")?.setAttribute("href", LINKS.donate);
-        // Маленькие ссылки на правилах
-        document.getElementById("discordLinkRules")?.setAttribute("href", LINKS.discord);
-        document.getElementById("modpackLinkRules")?.setAttribute("href", LINKS.modpack);
-        document.getElementById("donateLinkRules")?.setAttribute("href", LINKS.donate);
-        // Карта
+        ['Map', 'Mods', 'Rules', 'Support'].forEach(suf => {
+            const d = document.getElementById(`discordLink${suf}`); if(d) d.href = LINKS.discord;
+            const m = document.getElementById(`modpackLink${suf}`); if(m) m.href = LINKS.modpack;
+            const dn = document.getElementById(`donateLink${suf}`); if(dn) dn.href = LINKS.donate;
+        });
         document.getElementById("mapLink")?.setAttribute("href", LINKS.map);
 
         // Копирование IP
-        const copyBtn = document.getElementById("copyIpTrigger");
-        const serverIp = "5.188.159.239:30047";
-        copyBtn.addEventListener("click", () => {
-            navigator.clipboard.writeText(serverIp).then(() => {
-                const orig = copyBtn.innerText;
-                copyBtn.innerText = "✅ IP скопирован!";
-                setTimeout(() => copyBtn.innerText = orig, 1500);
-            }).catch(() => alert("Скопируйте IP: " + serverIp));
+        document.getElementById("copyIpTrigger").addEventListener("click", () => {
+            navigator.clipboard.writeText("5.188.159.239:30047").then(() => {
+                const btn = document.getElementById("copyIpTrigger");
+                const orig = btn.innerText;
+                btn.innerText = "✅ IP скопирован!";
+                setTimeout(() => btn.innerText = orig, 1500);
+            });
         });
 
-        // Переключение вкладок
+        // Вкладки
         const tabs = document.querySelectorAll('.tab-btn');
         const panes = {
             main: document.getElementById('tab-main'),
             map: document.getElementById('tab-map'),
-            rules: document.getElementById('tab-rules')
+            mods: document.getElementById('tab-mods'),
+            rules: document.getElementById('tab-rules'),
+            support: document.getElementById('tab-support')
         };
-
         function switchTab(tabId) {
             Object.values(panes).forEach(p => p?.classList.remove('active-pane'));
             if (panes[tabId]) panes[tabId].classList.add('active-pane');
@@ -552,13 +689,14 @@
                 if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
             });
         }
-
         tabs.forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.getAttribute('data-tab');
                 if (id === 'main') switchTab('main');
                 else if (id === 'map') switchTab('map');
+                else if (id === 'mods') switchTab('mods');
                 else if (id === 'rules') switchTab('rules');
+                else if (id === 'support') switchTab('support');
             });
         });
     })();
