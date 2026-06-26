@@ -499,18 +499,18 @@
         </div>
     </div>
 
-    <!-- КАРТА МИРА (DYNMAP ВСТРОЕН) -->
+    <!-- КАРТА МИРА -->
     <div id="tab-map" class="tab-pane">
         <div class="glass-card" style="padding: 0.5rem; overflow: hidden;">
             <h2 style="padding: 0 0.8rem;"><i class="fas fa-map-marked-alt"></i> Карта мира (Dynmap)</h2>
-            <iframe class="dynmap-iframe" src="http://5.188.159.239:30331" allowfullscreen loading="lazy"></iframe>
+            <iframe class="dynmap-iframe" src="https://5.188.159.239:30331" allowfullscreen loading="lazy"></iframe>
             <p style="padding: 0.5rem 0.8rem 0; font-size: 0.75rem; opacity: 0.7;">
                 <i class="fas fa-info-circle"></i> Карта обновляется в реальном времени. Используйте колесо мыши для масштабирования.
             </p>
         </div>
         <div class="bottom-links">
             <div class="link-row">
-                <a href="http://5.188.159.239:30331" target="_blank" class="link-chip"><i class="fas fa-external-link-alt"></i> Открыть в полном окне</a>
+                <a href="https://5.188.159.239:30331" target="_blank" class="link-chip"><i class="fas fa-external-link-alt"></i> Открыть в полном окне</a>
                 <a href="#" id="discordLinkMap" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
             </div>
         </div>
@@ -532,10 +532,10 @@
             </div>
         </div>
         <div class="glass-card">
-            <h3><i class="fas fa-download"></i> Установка сборки</h3>
-            <p>1. Скачайте ZIP-архив.<br>2. Распакуйте в <code>.minecraft/versions/</code>.<br>3. Запустите профиль Technovate (NeoForge).<br><strong>Рекомендуем 6-8 ГБ ОЗУ.</strong></p>
+            <h3><i class="fas fa-download"></i> Установка сборки (.mrpack)</h3>
+            <p>1. Скачайте <code>.mrpack</code> файл.<br>2. Импортируйте его в <strong>Prism Launcher</strong>, <strong>Modrinth App</strong> или <strong>CurseForge</strong>.<br>3. Выделите <strong>6-8 ГБ ОЗУ</strong> и запускайте.</p>
             <div class="action-block" id="modpackBtnMods" style="margin-top: 0.8rem; width: auto; display: inline-block; padding: 0.5rem 1rem;">
-                <i class="fas fa-download"></i> Скачать сборку
+                <i class="fas fa-download"></i> Скачать сборку (.mrpack)
             </div>
         </div>
         <div class="bottom-links">
@@ -546,116 +546,47 @@
         </div>
     </div>
 
-    <!-- ПРАВИЛА (ПОЛНОСТЬЮ ПО ТВОИМ СКРИНАМ) -->
+    <!-- ПРАВИЛА -->
     <div id="tab-rules" class="tab-pane">
         <div class="glass-card">
             <h2><i class="fas fa-gavel"></i> Правила сервера Technovate</h2>
             <p style="margin-bottom: 0.8rem; color: #d6964b; font-weight: 600;">Незнание правил не освобождает от ответственности</p>
 
-            <!-- РАЗДЕЛ 1 -->
             <div class="rule-section-title">1. Общие правила</div>
-
             <div class="rule-block"><strong>1.1</strong> Незнание правил не освобождает от ответственности</div>
             <div class="rule-block"><strong>1.2</strong> Администрация сервера может изменить/откорректировать правила без предупреждения игроков в любой момент. Администрация имеет право выдавать наказания на своё усмотрение</div>
             <div class="rule-block"><strong>1.3</strong> Мы оставляем за собой право блокировать проблемных пользователей на сервере. Это означает, что если пользователь ведет себя злонамеренно или неадекватно, персонал может принять решение о блокировке</div>
             <div class="rule-block"><strong>1.4</strong> Вся ответственность за игровые ресурсы, валюту и т.д. лежит исключительно на их владельцах</div>
             <div class="rule-block"><strong>1.5</strong> Наказания на проекте будут выдаваться по мере возрастания. <span class="punishment">Предупреждение → Мут/Кик → Бан</span></div>
 
-            <!-- РАЗДЕЛ 2 -->
             <div class="rule-section-title">2. Игровые правила</div>
+            <div class="rule-block"><strong>2.1</strong> Запрещена продажа любых игровых и неигровых ресурсов за реальные деньги<br><span class="punishment">Наказание: Бан ∞</span></div>
+            <div class="rule-block"><strong>2.2</strong> Запрещено использование любого постороннего ПО/Модификаций или багов, облегчающих игру на сервере и в личных целях<br><span class="punishment">Наказание: Бан от 7 дней до ∞</span></div>
+            <div class="rule-block"><strong>2.3</strong> Запрещена любая помеха игровому процессу и работе сервера<br><span class="punishment">Наказание: Бан от 7 дней до ∞</span></div>
+            <div class="rule-block"><strong>2.4</strong> Любое обсуждение или планирование помехи игрового процесса/работы сервера будет воспринято как нарушение<br><span class="punishment">Наказание: Бан от 30 минут до 7 дней</span></div>
+            <div class="rule-block"><strong>2.5</strong> Запрещены попытки взлома игрока/представителя администрации<br><span class="punishment">Наказание: Бан от 14 дней до ∞</span></div>
+            <div class="rule-block"><strong>2.6</strong> Запрещено использование любых команд донатеров для личной выгоды или во вред другим игрокам<br><span class="punishment">Наказание: Предупреждение с последующей возможностью снятия</span></div>
+            <div class="rule-block"><strong>2.7</strong> Запрещено публично критиковать действия администрации и модерации сервера в негативной форме с целью её дискредитации<br><span class="punishment">Наказание: Мут от 1 часа до перманентной блокировки</span></div>
 
-            <div class="rule-block">
-                <strong>2.1</strong> Запрещена продажа любых игровых и неигровых ресурсов за реальные деньги<br>
-                <span class="punishment">Наказание: Бан ∞</span>
-            </div>
-            <div class="rule-block">
-                <strong>2.2</strong> Запрещено использование любого постороннего ПО/Модификаций или багов, облегчающих игру на сервере и в личных целях<br>
-                <span class="punishment">Наказание: Бан от 7 дней до ∞</span>
-            </div>
-            <div class="rule-block">
-                <strong>2.3</strong> Запрещена любая помеха игровому процессу и работе сервера<br>
-                <span class="punishment">Наказание: Бан от 7 дней до ∞</span>
-            </div>
-            <div class="rule-block">
-                <strong>2.4</strong> Любое обсуждение или планирование помехи игрового процесса/работы сервера будет воспринято как нарушение<br>
-                <span class="punishment">Наказание: Бан от 30 минут до 7 дней</span>
-            </div>
-            <div class="rule-block">
-                <strong>2.5</strong> Запрещены попытки взлома игрока/представителя администрации<br>
-                <span class="punishment">Наказание: Бан от 14 дней до ∞</span>
-            </div>
-            <div class="rule-block">
-                <strong>2.6</strong> Запрещено использование любых команд донатеров для личной выгоды или во вред другим игрокам<br>
-                <span class="punishment">Наказание: Предупреждение с последующей возможностью снятия</span>
-            </div>
-            <div class="rule-block">
-                <strong>2.7</strong> Запрещено публично критиковать действия администрации и модерации сервера в негативной форме с целью её дискредитации<br>
-                <span class="punishment">Наказание: Мут от 1 часа до перманентной блокировки</span>
-            </div>
-
-            <!-- РАЗДЕЛ 3 -->
             <div class="rule-section-title">3. Правила чата</div>
+            <div class="rule-block"><strong>3.1</strong> Запрещено проявление и организация флуда в чате, использование заглавных букв (капс) и написание заборчиком<br><span class="punishment">Наказание: Мут от 15 минут до 2 часов</span></div>
+            <div class="rule-block"><strong>3.2</strong> Запрещен спам в личный чат любого игрока<br><span class="punishment">Наказание: Мут от 15 минут до 2 часов</span></div>
+            <div class="rule-block"><strong>3.3</strong> Запрещен спам командами<br><span class="punishment">Наказание: Бан 2 часа</span></div>
+            <div class="rule-block"><strong>3.4</strong> Запрещено выпрашивание чего-либо у персонала<br><span class="punishment">Наказание: Мут от 30 минут</span></div>
+            <div class="rule-block"><strong>3.5</strong> Запрещено распространение багов, уловок, недоработок сервера<br><span class="punishment">Наказание: Бан ∞</span></div>
+            <div class="rule-block"><strong>3.6</strong> Запрещены проявления оскорблений в чате по отношению к игрокам, персоналу, серверу в целом и аморальное поведение<br><span class="punishment">Наказание: Мут от 1 часа (вплоть до бана)</span></div>
+            <div class="rule-block"><strong>3.7</strong> Запрещены проявления розжига межнациональной розни<br><span class="punishment">Наказание: Мут от 24 часов</span></div>
+            <div class="rule-block"><strong>3.8</strong> Распространение личной информации<br><span class="punishment">Наказание: Мут от 1 часа (вплоть до бана)</span></div>
+            <div class="rule-block"><strong>3.9</strong> Конфликты на религиозной почве и оскорбление чувств верующих<br><span class="punishment">Наказание: Мут от 3 часов (вплоть до бана)</span></div>
+            <div class="rule-block"><strong>3.10</strong> Запрещена реклама<br><span class="punishment">Наказание: Бан ∞</span></div>
+            <div class="rule-block"><strong>3.11</strong> Упоминание в негативном ключе родственников или их оскорбление<br><span class="punishment">Наказание: Мут от 24 часов (вплоть до бана)</span></div>
 
-            <div class="rule-block">
-                <strong>3.1</strong> Запрещено проявление и организация флуда в чате, использование заглавных букв (капс) и написание заборчиком<br>
-                <span class="punishment">Наказание: Мут от 15 минут до 2 часов</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.2</strong> Запрещен спам в личный чат любого игрока<br>
-                <span class="punishment">Наказание: Мут от 15 минут до 2 часов</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.3</strong> Запрещен спам командами<br>
-                <span class="punishment">Наказание: Бан 2 часа</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.4</strong> Запрещено выпрашивание чего-либо у персонала<br>
-                <span class="punishment">Наказание: Мут от 30 минут</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.5</strong> Запрещено распространение багов, уловок, недоработок сервера<br>
-                <span class="punishment">Наказание: Бан ∞</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.6</strong> Запрещены проявления оскорблений в чате по отношению к игрокам, персоналу, серверу в целом и аморальное поведение<br>
-                <span class="punishment">Наказание: Мут от 1 часа (вплоть до бана)</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.7</strong> Запрещены проявления розжига межнациональной розни<br>
-                <span class="punishment">Наказание: Мут от 24 часов</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.8</strong> Распространение личной информации<br>
-                <span class="punishment">Наказание: Мут от 1 часа (вплоть до бана)</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.9</strong> Конфликты на религиозной почве и оскорбление чувств верующих<br>
-                <span class="punishment">Наказание: Мут от 3 часов (вплоть до бана)</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.10</strong> Запрещена реклама<br>
-                <span class="punishment">Наказание: Бан ∞</span>
-            </div>
-            <div class="rule-block">
-                <strong>3.11</strong> Упоминание в негативном ключе родственников или их оскорбление<br>
-                <span class="punishment">Наказание: Мут от 24 часов (вплоть до бана)</span>
-            </div>
-
-            <!-- РАЗДЕЛ 4 -->
             <div class="rule-section-title">4. Персонал</div>
-
             <div class="rule-block"><strong>4.1</strong> Персонал набирается исключительно главными администраторами сервера</div>
             <div class="rule-block"><strong>4.2</strong> Любой член персонала может быть снят в любое время, без объяснения причины</div>
             <div class="rule-block"><strong>4.3</strong> Запрещена телепортация к игроку, если тот готовится к нападению, рейду и т.д</div>
             <div class="rule-block"><strong>4.4</strong> Запрещено использование любых команд персонала для личной выгоды или во вред другим игрокам</div>
-            <div class="rule-block">
-                <strong>4.5</strong> Персонал является лицом сервера, поэтому все участники персонала обязуются:
-                <br>1 – Вести себя адекватно;
-                <br>2 – Своевременно реагировать на нарушения в чате;
-                <br>3 – Не реагировать на провокации игроков, не отвечать агрессией;
-                <br>4 – Исключить употребление ненормативной лексики в отношении игроков;
-                <br>5 – Запрещено использовать фразы «Замолкни», «Заткнись», «Рот офф» и подобные фразы по отношению к игрокам.
-            </div>
+            <div class="rule-block"><strong>4.5</strong> Персонал является лицом сервера, поэтому все участники персонала обязуются:<br>1 – Вести себя адекватно;<br>2 – Своевременно реагировать на нарушения в чате;<br>3 – Не реагировать на провокации игроков, не отвечать агрессией;<br>4 – Исключить употребление ненормативной лексики в отношении игроков;<br>5 – Запрещено использовать фразы «Замолкни», «Заткнись», «Рот офф» и подобные фразы по отношению к игрокам.</div>
         </div>
         <div class="bottom-links">
             <div class="link-row">
@@ -670,7 +601,7 @@
     <div id="tab-support" class="tab-pane">
         <div class="glass-card">
             <h2><i class="fas fa-headset"></i> Техническая поддержка</h2>
-            <p>Все вопросы, связанные с сервером, сборкой модов, приватами, багами и другими проблемами, решаются в нашем Discord-сообществе.</p>
+            <p>Все вопросы, связанные с сервером, сборкой модов, багами и другими проблемами, решаются в нашем Discord-сообществе.</p>
             <div class="support-note">
                 <i class="fab fa-discord"></i> <strong>Поддержка осуществляется исключительно в Discord</strong><br>
                 Присоединяйтесь к серверу, откройте тикет в канале <strong>#помощь</strong> или <strong>#тикеты</strong>, и администраторы помогут вам.
@@ -683,7 +614,7 @@
             <h3><i class="fas fa-question-circle"></i> Частые вопросы</h3>
             <p><strong>❓ Не заходит на сервер?</strong> — Проверьте версию сборки и установите NeoForge 1.21.1.</p>
             <p><strong>❓ Лагают механизмы?</strong> — Оптимизируйте постройки, избегайте спама вращением.</p>
-            <p><strong>❓ Как получить приват?</strong> — Используйте золотую лопату, чтобы выделить территорию.</p>
+            <p><strong>❓ Как установить сборку?</strong> — Скачайте <code>.mrpack</code> и импортируйте его в Prism Launcher, Modrinth App или CurseForge.</p>
             <p><strong>❓ Хочу помочь серверу?</strong> — Присоединяйтесь к команде или поддержите донатом.</p>
         </div>
         <div class="bottom-links">
@@ -702,7 +633,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     (function() {
-        // Шестерёнки
         function placeAllGears() {
             const gears = document.querySelectorAll('.gear');
             const container = document.getElementById('gearsLayer');
@@ -735,7 +665,6 @@
         setTimeout(placeAllGears, 50);
         window.addEventListener('resize', placeAllGears);
 
-        // Искры
         const sparksLayer = document.getElementById('sparksLayer');
         for (let i = 0; i < 25; i++) {
             const spark = document.createElement('div');
@@ -756,7 +685,6 @@
             window.addEventListener('resize', updatePos);
         }
 
-        // ГАЛЕРЕЯ
         new Swiper('.mySwiper', {
             loop: true,
             pagination: { el: '.swiper-pagination', clickable: true },
@@ -764,12 +692,11 @@
             autoplay: { delay: 5000, disableOnInteraction: false },
         });
 
-        // ССЫЛКИ
         const LINKS = {
             discord: "https://discord.gg/technovate",
-            modpack: "/downloads/technovate.zip",
+            modpack: "/downloads/technovate.mrpack",
             donate: "https://easydonate.ru/technovate",
-            map: "http://5.188.159.239:30331"
+            map: "https://5.188.159.239:30331"
         };
 
         function bindClick(id, url, blank = true) {
@@ -789,7 +716,6 @@
         });
         document.getElementById("mapLink")?.setAttribute("href", LINKS.map);
 
-        // Копирование IP
         document.getElementById("copyIpTrigger").addEventListener("click", () => {
             navigator.clipboard.writeText("5.188.159.239:30047").then(() => {
                 const btn = document.getElementById("copyIpTrigger");
@@ -799,7 +725,6 @@
             });
         });
 
-        // Вкладки
         const tabs = document.querySelectorAll('.tab-btn');
         const panes = {
             main: document.getElementById('tab-main'),
@@ -829,4 +754,4 @@
     })();
 </script>
 </body>
-                </html>
+        </html>
