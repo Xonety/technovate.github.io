@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         * {
             margin: 0;
@@ -412,16 +414,38 @@
         .rule-section-title:first-of-type {
             margin-top: 0;
         }
-        iframe.dynmap-iframe {
-            width: 100%;
-            height: 520px;
-            border: none;
+
+        /* Стили для карты Leaflet на тёмном фоне */
+        #dynmap-leaflet {
+            background: #1a1410;
             border-radius: 1rem;
-            margin-top: 0.5rem;
+            overflow: hidden;
         }
+        #dynmap-leaflet .leaflet-control-zoom a {
+            background: #2a1f18;
+            color: #ede3d4;
+            border-color: #5a4030;
+        }
+        #dynmap-leaflet .leaflet-control-zoom a:hover {
+            background: #3d2f25;
+        }
+        #dynmap-leaflet .leaflet-attribution-flag {
+            display: none !important;
+        }
+        #dynmap-leaflet .leaflet-control-attribution {
+            background: rgba(0,0,0,0.6);
+            color: #aaa;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        #dynmap-leaflet .leaflet-control-attribution a {
+            color: #d6964b;
+        }
+
         @media (max-width: 640px) {
-            iframe.dynmap-iframe {
-                height: 320px;
+            #dynmap-leaflet {
+                height: 320px !important;
             }
         }
     </style>
@@ -499,18 +523,18 @@
         </div>
     </div>
 
-    <!-- КАРТА МИРА -->
+    <!-- КАРТА МИРА (LEAFLET) -->
     <div id="tab-map" class="tab-pane">
         <div class="glass-card" style="padding: 0.5rem; overflow: hidden;">
             <h2 style="padding: 0 0.8rem;"><i class="fas fa-map-marked-alt"></i> Карта мира (Dynmap)</h2>
-            <iframe class="dynmap-iframe" src="https://5.188.159.239:30331" allowfullscreen loading="lazy"></iframe>
+            <div id="dynmap-leaflet"></div>
             <p style="padding: 0.5rem 0.8rem 0; font-size: 0.75rem; opacity: 0.7;">
                 <i class="fas fa-info-circle"></i> Карта обновляется в реальном времени. Используйте колесо мыши для масштабирования.
             </p>
         </div>
         <div class="bottom-links">
             <div class="link-row">
-                <a href="https://5.188.159.239:30331" target="_blank" class="link-chip"><i class="fas fa-external-link-alt"></i> Открыть в полном окне</a>
+                <a href="http://5.188.159.239:30331" target="_blank" class="link-chip"><i class="fas fa-external-link-alt"></i> Открыть в полном окне</a>
                 <a href="#" id="discordLinkMap" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
             </div>
         </div>
@@ -533,7 +557,7 @@
         </div>
         <div class="glass-card">
             <h3><i class="fas fa-download"></i> Установка сборки (.mrpack)</h3>
-            <p>1. Скачайте <code>.mrpack</code> файл.<br>2. Импортируйте его в <strong>Prism Launcher</strong>, <strong>Modrinth App</strong> или <strong>CurseForge</strong>.<br>3. Выделите <strong>6-8 ГБ ОЗУ</strong> и запускайте.</p>
+            <p>1. Скачайте <code>.mrpack</code> файл.<br>2. Импортируйте его в свой лаунчер.<br>3. Выделите <strong>6-8 ГБ ОЗУ</strong> и запускайте.</p>
             <div class="action-block" id="modpackBtnMods" style="margin-top: 0.8rem; width: auto; display: inline-block; padding: 0.5rem 1rem;">
                 <i class="fas fa-download"></i> Скачать сборку (.mrpack)
             </div>
@@ -614,7 +638,7 @@
             <h3><i class="fas fa-question-circle"></i> Частые вопросы</h3>
             <p><strong>❓ Не заходит на сервер?</strong> — Проверьте версию сборки и установите NeoForge 1.21.1.</p>
             <p><strong>❓ Лагают механизмы?</strong> — Оптимизируйте постройки, избегайте спама вращением.</p>
-            <p><strong>❓ Как установить сборку?</strong> — Скачайте <code>.mrpack</code> и импортируйте его в Prism Launcher, Modrinth App или CurseForge.</p>
+            <p><strong>❓ Как установить сборку?</strong> — Скачайте <code>.mrpack</code> и импортируйте его в свой лаунчер.</p>
             <p><strong>❓ Хочу помочь серверу?</strong> — Присоединяйтесь к команде или поддержите донатом.</p>
         </div>
         <div class="bottom-links">
@@ -630,9 +654,12 @@
     </footer>
 </div>
 
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     (function() {
+        // Шестерёнки
         function placeAllGears() {
             const gears = document.querySelectorAll('.gear');
             const container = document.getElementById('gearsLayer');
@@ -665,6 +692,7 @@
         setTimeout(placeAllGears, 50);
         window.addEventListener('resize', placeAllGears);
 
+        // Искры
         const sparksLayer = document.getElementById('sparksLayer');
         for (let i = 0; i < 25; i++) {
             const spark = document.createElement('div');
@@ -685,6 +713,7 @@
             window.addEventListener('resize', updatePos);
         }
 
+        // Свайпер галерея
         new Swiper('.mySwiper', {
             loop: true,
             pagination: { el: '.swiper-pagination', clickable: true },
@@ -692,11 +721,11 @@
             autoplay: { delay: 5000, disableOnInteraction: false },
         });
 
+        // Ссылки
         const LINKS = {
             discord: "https://discord.gg/technovate",
             modpack: "/downloads/technovate.mrpack",
-            donate: "https://easydonate.ru/technovate",
-            map: "https://5.188.159.239:30331"
+            donate: "https://easydonate.ru/technovate"
         };
 
         function bindClick(id, url, blank = true) {
@@ -714,8 +743,8 @@
             const m = document.getElementById(`modpackLink${suf}`); if(m) m.href = LINKS.modpack;
             const dn = document.getElementById(`donateLink${suf}`); if(dn) dn.href = LINKS.donate;
         });
-        document.getElementById("mapLink")?.setAttribute("href", LINKS.map);
 
+        // Копирование IP
         document.getElementById("copyIpTrigger").addEventListener("click", () => {
             navigator.clipboard.writeText("5.188.159.239:30047").then(() => {
                 const btn = document.getElementById("copyIpTrigger");
@@ -725,6 +754,7 @@
             });
         });
 
+        // Вкладки
         const tabs = document.querySelectorAll('.tab-btn');
         const panes = {
             main: document.getElementById('tab-main'),
@@ -740,6 +770,14 @@
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
             });
+            // Если переключились на карту — обновляем размер Leaflet
+            if (tabId === 'map') {
+                setTimeout(() => {
+                    if (window.mapInstance) {
+                        window.mapInstance.invalidateSize();
+                    }
+                }, 400);
+            }
         }
         tabs.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -751,7 +789,61 @@
                 else if (id === 'support') switchTab('support');
             });
         });
+
+        // === LEAFLET DYNMAP ===
+        function initDynmapLeaflet() {
+            const container = document.getElementById('dynmap-leaflet');
+            if (!container) return;
+            if (container._leaflet_id) return;
+
+            // ⚠️ ПУТЬ К ТАЙЛАМ — ПОПРАВЬ ЕСЛИ НУЖНО
+            const tileUrl = 'http://5.188.159.239:30331/tiles/world/{z}/{x}/{y}.png';
+            const attribution = '&copy; <a href="http://5.188.159.239:30331" target="_blank">Dynmap</a>';
+
+            const map = L.map(container, {
+                center: [0, 0],
+                zoom: 2,
+                zoomControl: true,
+                fadeAnimation: true,
+                attributionControl: true
+            });
+
+            L.tileLayer(tileUrl, {
+                attribution: attribution,
+                maxZoom: 10,
+                minZoom: 0,
+                crossOrigin: true,
+                errorTileUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
+            }).addTo(map);
+
+            // Сохраняем карту в глобальную переменную для обновления
+            window.mapInstance = map;
+
+            // Обновляем размер после инициализации
+            setTimeout(() => map.invalidateSize(), 500);
+        }
+
+        // Запускаем Leaflet после загрузки DOM
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initDynmapLeaflet);
+        } else {
+            initDynmapLeaflet();
+        }
+
+        // Обновляем карту при ресайзе
+        window.addEventListener('resize', () => {
+            if (window.mapInstance) {
+                setTimeout(() => window.mapInstance.invalidateSize(), 300);
+            }
+        });
+
+        // Если карта ещё не загрузилась, но вкладка уже активна — пробуем ещё раз
+        setTimeout(() => {
+            if (window.mapInstance) {
+                window.mapInstance.invalidateSize();
+            }
+        }, 2000);
     })();
 </script>
 </body>
-        </html>
+            </html>
