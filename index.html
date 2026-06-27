@@ -321,26 +321,6 @@
             font-weight: 600;
             display: inline-block;
         }
-        .map-link-card {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 1.2rem;
-            padding: 1rem;
-            text-align: center;
-            margin: 0.8rem 0;
-            border: 1px solid #d6964b;
-        }
-        .map-link-card a {
-            font-size: clamp(0.9rem, 4vw, 1.1rem);
-            font-weight: 700;
-            color: #ffdead;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #2f241bb3;
-            padding: 0.4rem 1.2rem;
-            border-radius: 60px;
-        }
         .bottom-links {
             margin-top: 1rem;
             padding-top: 0.8rem;
@@ -413,18 +393,66 @@
             margin-top: 0;
         }
 
-        iframe.dynmap-iframe {
-            width: 100%;
-            height: 520px;
-            border: none;
-            border-radius: 1rem;
-            margin-top: 0.5rem;
+        .map-button-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .map-button {
             background: #1a1410;
+            border-radius: 1.3rem;
+            padding: 1rem 2rem;
+            text-align: center;
+            border-bottom: 3px solid #bc7b3c;
+            transition: 0.15s;
+            cursor: pointer;
+            text-decoration: none;
+            color: #f7e0bb;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .map-button:hover {
+            transform: translateY(-3px);
+            background: #241d18;
+            border-bottom-color: #e7a554;
+        }
+        .map-button i {
+            font-size: 2rem;
+            color: #e7a452;
+        }
+        .map-button span {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.4rem 1rem;
+            margin: 0.8rem 0;
+        }
+        .feature-list li {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        .feature-list li i {
+            color: #d6964b;
+            width: 18px;
         }
         @media (max-width: 640px) {
-            iframe.dynmap-iframe {
-                height: 320px;
+            .feature-list {
+                grid-template-columns: 1fr;
             }
+        }
+        .server-description {
+            line-height: 1.6;
+        }
+        .server-description strong {
+            color: #fbcf8c;
         }
     </style>
 </head>
@@ -446,7 +474,7 @@
     <div class="hero">
         <div class="ip-card">
             <i class="fas fa-globe"></i>
-            <span class="ip-text">5.188.159.239:30047</span>
+            <span class="ip-text">mc-technovate.ru</span>
             <button class="copy-btn" id="copyIpTrigger">Копировать IP</button>
         </div>
     </div>
@@ -454,7 +482,7 @@
     <div class="tabs-wrapper">
         <button class="tab-btn active" data-tab="main"><i class="fas fa-microchip"></i> О сервере</button>
         <button class="tab-btn" data-tab="map"><i class="fas fa-map"></i> Карта мира</button>
-        <button class="tab-btn" data-tab="mods"><i class="fas fa-cubes"></i> Моды</button>
+        <button class="tab-btn" data-tab="mods"><i class="fas fa-cubes"></i> Сборка</button>
         <button class="tab-btn" data-tab="rules"><i class="fas fa-scroll"></i> Правила</button>
         <button class="tab-btn" data-tab="support"><i class="fas fa-headset"></i> Техподдержка</button>
     </div>
@@ -462,13 +490,41 @@
     <!-- ГЛАВНАЯ -->
     <div id="tab-main" class="tab-pane active-pane">
         <div class="glass-card">
-            <h2><i class="fas fa-microchip"></i> О сервере</h2>
-            <p>Механическое сердце вселенной <strong>Create + Create Aeronautics</strong> на версии <strong>1.21.1 NeoForge</strong>. Здесь пар и шестерёнки правят балом, а небесные линкоры и автоматизированные заводы — реальность.</p>
-            <div style="margin: 0.8rem 0 0;">
-                <span class="feature-tag">⚙️ Create 6.0.10 + Aeronautics</span>
-                <span class="feature-tag">✈️ Физические корабли</span>
-                <span class="feature-tag">🧲 Защита территорий</span>
-                <span class="feature-tag">🏭 Технические ивенты</span>
+            <h2><i class="fas fa-microchip"></i> ⚙️ Technovate — построй цивилизацию будущего</h2>
+            <div class="server-description">
+                <p>Добро пожаловать на <strong>Technovate</strong> — уникальный Minecraft-сервер, где технологии, инженерия и политика объединяются в один живой мир.</p>
+                <br>
+                <p>🚂 Создавай огромные заводы на Create, строй железные дороги, дирижабли и автоматизированные производства.</p>
+                <p>🏙️ Основывай собственный город, объединяйся с друзьями в государства, заключай союзы или начинай войны за ресурсы и территории.</p>
+                <br>
+                <p><strong>💰 Развивай экономику:</strong></p>
+                <ul style="margin-left: 1.5rem; list-style: none;">
+                    <li>• аукцион игроков;</li>
+                    <li>• профессии;</li>
+                    <li>• честная торговля;</li>
+                    <li>• собственный бизнес.</li>
+                </ul>
+                <br>
+                <p>🌍 Исследуй полностью переработанный мир с красивейшей генерацией Terralith + Tectonic.</p>
+                <p>🔫 Защищай свои владения при помощи современного оружия и инженерных разработок.</p>
+                <p>🎨 Украшай базы сотнями декоративных блоков и мебели благодаря Oraxen и декоративным модам.</p>
+                <p>🔊 Общайся через встроенный голосовой чат без сторонних программ.</p>
+                <br>
+                <p><strong>Что тебя ждёт?</strong></p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-cogs"></i> Огромный технический модпак</li>
+                    <li><i class="fas fa-robot"></i> Автоматизация любой сложности</li>
+                    <li><i class="fas fa-train"></i> Железные дороги</li>
+                    <li><i class="fas fa-plane"></i> Воздушный транспорт</li>
+                    <li><i class="fas fa-city"></i> Города и государства</li>
+                    <li><i class="fas fa-coins"></i> Живая экономика</li>
+                    <li><i class="fas fa-map"></i> Онлайн-карта мира</li>
+                    <li><i class="fas fa-users"></i> Дружелюбное сообщество</li>
+                    <li><i class="fas fa-shield-alt"></i> Активная администрация</li>
+                    <li><i class="fas fa-sync-alt"></i> Регулярные обновления</li>
+                </ul>
+                <br>
+                <p><strong>Technovate — это место, где каждый игрок способен изменить историю сервера.</strong></p>
             </div>
         </div>
 
@@ -487,13 +543,6 @@
             </div>
         </div>
 
-        <div class="glass-card">
-            <h3><i class="fas fa-newspaper"></i> Последние новости</h3>
-            <p>🔧 <strong>Сервер запущен на версии 1.21.1!</strong> Все моды обновлены.</p>
-            <p style="margin-top: 8px;">⚡ <strong>Ивент «Воздушные гонки»</strong> — в субботу в 18:00 МСК.</p>
-            <p style="margin-top: 8px;">📢 <strong>Набор в команду</strong> — ищем помощников администратора.</p>
-        </div>
-
         <div class="action-panel">
             <div class="action-block" id="discordBtn"><i class="fab fa-discord"></i><h3>Discord</h3><div class="mini-btn">Присоединиться →</div></div>
             <div class="action-block" id="modpackBtn"><i class="fas fa-download"></i><h3>Сборка</h3><div class="mini-btn">Скачать →</div></div>
@@ -501,24 +550,27 @@
         </div>
     </div>
 
-    <!-- КАРТА МИРА (IFRAME) -->
+    <!-- КАРТА МИРА -->
     <div id="tab-map" class="tab-pane">
-        <div class="glass-card" style="padding: 0.5rem; overflow: hidden;">
-            <h2 style="padding: 0 0.8rem;"><i class="fas fa-map-marked-alt"></i> Карта мира (Dynmap)</h2>
-            <iframe class="dynmap-iframe" src="http://5.188.159.239:30331/" allowfullscreen loading="lazy"></iframe>
-            <p style="padding: 0.5rem 0.8rem 0; font-size: 0.75rem; opacity: 0.7;">
-                <i class="fas fa-info-circle"></i> Карта обновляется в реальном времени. Используйте колесо мыши для масштабирования.
-            </p>
+        <div class="glass-card" style="text-align: center; padding: 2rem;">
+            <i class="fas fa-map" style="font-size: 3rem; color: #d6964b; margin-bottom: 1rem;"></i>
+            <h2 style="color: #fbcf8c;">Карта мира</h2>
+            <p style="margin: 1rem 0; opacity: 0.7;">Откройте карту в новой вкладке</p>
+            <div class="map-button-wrapper">
+                <a href="http://map.mc-technovate.ru" target="_blank" class="map-button">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span>Открыть Dynmap</span>
+                </a>
+            </div>
         </div>
         <div class="bottom-links">
             <div class="link-row">
-                <a href="http://5.188.159.239:30331/" target="_blank" class="link-chip"><i class="fas fa-external-link-alt"></i> Открыть в полном окне</a>
-                <a href="#" id="discordLinkMap" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
+                <a href="#" id="discordLinkMap" class="link-chip"><i class="fab fa-discord"></i> discord.gg/ZTdBYWcsf</a>
             </div>
         </div>
     </div>
 
-    <!-- МОДЫ -->
+    <!-- СБОРКА -->
     <div id="tab-mods" class="tab-pane">
         <div class="glass-card">
             <h2><i class="fas fa-cubes"></i> Основные моды (1.21.1)</h2>
@@ -542,7 +594,7 @@
         </div>
         <div class="bottom-links">
             <div class="link-row">
-                <a href="#" id="discordLinkMods" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
+                <a href="#" id="discordLinkMods" class="link-chip"><i class="fab fa-discord"></i> discord.gg/ZTdBYWcsf</a>
                 <a href="#" id="donateLinkMods" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru</a>
             </div>
         </div>
@@ -592,7 +644,7 @@
         </div>
         <div class="bottom-links">
             <div class="link-row">
-                <a href="#" id="discordLinkRules" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
+                <a href="#" id="discordLinkRules" class="link-chip"><i class="fab fa-discord"></i> discord.gg/ZTdBYWcsf</a>
                 <a href="#" id="modpackLinkRules" class="link-chip"><i class="fas fa-box-open"></i> Скачать сборку</a>
                 <a href="#" id="donateLinkRules" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru</a>
             </div>
@@ -621,7 +673,7 @@
         </div>
         <div class="bottom-links">
             <div class="link-row">
-                <a href="#" id="discordLinkSupport" class="link-chip"><i class="fab fa-discord"></i> discord.gg/technovate</a>
+                <a href="#" id="discordLinkSupport" class="link-chip"><i class="fab fa-discord"></i> discord.gg/ZTdBYWcsf</a>
                 <a href="#" id="donateLinkSupport" class="link-chip"><i class="fas fa-heart"></i> easydonate.ru</a>
             </div>
         </div>
@@ -699,7 +751,7 @@
 
         // Ссылки
         const LINKS = {
-            discord: "https://discord.gg/technovate",
+            discord: "https://discord.gg/ZTdBYWcsf",
             modpack: "/downloads/technovate.mrpack",
             donate: "https://easydonate.ru/technovate"
         };
@@ -720,10 +772,23 @@
             const dn = document.getElementById(`donateLink${suf}`); if(dn) dn.href = LINKS.donate;
         });
 
-        // Копирование IP
-        document.getElementById("copyIpTrigger").addEventListener("click", () => {
-            navigator.clipboard.writeText("5.188.159.239:30047").then(() => {
-                const btn = document.getElementById("copyIpTrigger");
+        // Копирование IP (ИСПРАВЛЕНО)
+        document.getElementById("copyIpTrigger").addEventListener("click", function() {
+            const ipText = document.querySelector('.ip-text').textContent.trim();
+            navigator.clipboard.writeText(ipText).then(() => {
+                const btn = this;
+                const orig = btn.innerText;
+                btn.innerText = "✅ IP скопирован!";
+                setTimeout(() => btn.innerText = orig, 1500);
+            }).catch(() => {
+                // fallback для старых браузеров
+                const textarea = document.createElement('textarea');
+                textarea.value = ipText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                textarea.remove();
+                const btn = this;
                 const orig = btn.innerText;
                 btn.innerText = "✅ IP скопирован!";
                 setTimeout(() => btn.innerText = orig, 1500);
@@ -760,4 +825,4 @@
     })();
 </script>
 </body>
-                                                  </html>
+                                                                                                </html>
