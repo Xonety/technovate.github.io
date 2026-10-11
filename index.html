@@ -653,7 +653,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     (function() {
-        // Шестерёнки
         function placeAllGears() {
             const gears = document.querySelectorAll('.gear');
             const container = document.getElementById('gearsLayer');
@@ -686,7 +685,6 @@
         setTimeout(placeAllGears, 50);
         window.addEventListener('resize', placeAllGears);
 
-        // Искры
         const sparksLayer = document.getElementById('sparksLayer');
         for (let i = 0; i < 25; i++) {
             const spark = document.createElement('div');
@@ -707,7 +705,6 @@
             window.addEventListener('resize', updatePos);
         }
 
-        // Свайпер галерея
         new Swiper('.mySwiper', {
             loop: true,
             pagination: { el: '.swiper-pagination', clickable: true },
@@ -715,8 +712,6 @@
             autoplay: { delay: 5000, disableOnInteraction: false },
         });
 
-        // Ссылки
-        // ⚠️ ВАЖНО: замени modpack на свою ссылку с GitHub Releases / Яндекс.Диска / Google Drive
         const LINKS = {
             discord: "https://discord.gg/ZTdBYWcsf",
             modpack: "https://drive.google.com/uc?export=download&id=1ePK3XkSie-zZjUvatQEdUbpTtzR5h-An",
@@ -739,7 +734,6 @@
             const dn = document.getElementById(`donateLink${suf}`); if(dn) dn.href = LINKS.donate;
         });
 
-        // Копирование IP (с fallback для старых браузеров)
         document.getElementById("copyIpTrigger").addEventListener("click", function() {
             const ipText = document.querySelector('.ip-text').textContent.trim();
             const btn = this;
@@ -775,7 +769,6 @@
             document.body.removeChild(textarea);
         }
 
-        // ВКЛАДКИ С ПОДДЕРЖКОЙ ЯКОРЕЙ (можно давать ссылку сразу на вкладку)
         const tabs = document.querySelectorAll('.tab-btn');
         const panes = {
             main: document.getElementById('tab-main'),
@@ -792,7 +785,6 @@
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
             });
-            // Обновляем hash в URL без перезагрузки
             if (location.hash !== '#' + tabId) {
                 history.replaceState(null, '', '#' + tabId);
             }
@@ -804,13 +796,11 @@
             });
         });
 
-        // Открываем вкладку из hash при загрузке
         window.addEventListener('DOMContentLoaded', () => {
             const hash = location.hash.replace('#', '');
             if (panes[hash]) switchTab(hash);
         });
 
-        // Реагируем на изменение hash
         window.addEventListener('hashchange', () => {
             const hash = location.hash.replace('#', '');
             if (panes[hash]) switchTab(hash);
