@@ -7,10 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
     <style>
         * {
             margin: 0;
@@ -367,13 +363,8 @@
             border-left: 3px solid #d6964b;
             margin-bottom: 0.4rem;
         }
-        .rule-block strong {
-            color: #fbcf8c;
-        }
-        .rule-block .punishment {
-            color: #e7aa5e;
-            font-size: 0.85rem;
-        }
+        .rule-block strong { color: #fbcf8c; }
+        .rule-block .punishment { color: #e7aa5e; font-size: 0.85rem; }
         .rule-section-title {
             color: #fbcf8c;
             font-family: 'Space Grotesk', monospace;
@@ -382,9 +373,7 @@
             border-bottom: 1px solid #b67a4260;
             padding-bottom: 0.3rem;
         }
-        .rule-section-title:first-of-type {
-            margin-top: 0;
-        }
+        .rule-section-title:first-of-type { margin-top: 0; }
 
         .map-button-wrapper {
             display: flex;
@@ -410,14 +399,8 @@
             background: #241d18;
             border-bottom-color: #e7a554;
         }
-        .map-button i {
-            font-size: 2rem;
-            color: #e7a452;
-        }
-        .map-button span {
-            font-size: 1rem;
-            font-weight: 600;
-        }
+        .map-button i { font-size: 2rem; color: #e7a452; }
+        .map-button span { font-size: 1rem; font-weight: 600; }
 
         .feature-list {
             display: grid;
@@ -432,26 +415,16 @@
             gap: 6px;
             font-size: 0.9rem;
         }
-        .feature-list li i {
-            color: #d6964b;
-            width: 18px;
-        }
+        .feature-list li i { color: #d6964b; width: 18px; }
         @media (max-width: 640px) {
-            .feature-list {
-                grid-template-columns: 1fr;
-            }
+            .feature-list { grid-template-columns: 1fr; }
         }
-        .server-description {
-            line-height: 1.6;
-        }
-        .server-description strong {
-            color: #fbcf8c;
-        }
+        .server-description { line-height: 1.6; }
+        .server-description strong { color: #fbcf8c; }
     </style>
 </head>
 <body>
 
-<div class="static-bg"></div>
 <div class="dark-overlay"></div>
 <div class="gears-layer" id="gearsLayer"></div>
 <div class="sparks-layer" id="sparksLayer"></div>
@@ -580,7 +553,7 @@
         </div>
         <div class="glass-card">
             <h3><i class="fas fa-download"></i> Установка сборки (.mrpack)</h3>
-            <p>1. Скачайте <code>.mrpack</code> файл.<br>2. Импортируйте его в свой лаунчер.<br>3. Выделите <strong>6-8 ГБ ОЗУ</strong> и запускайте.</p>
+            <p>1. Скачайте <code>.mrpack</code> файл.<br>2. Импортируйте его в свой лаунчер (Prism, ATLauncher, Modrinth App и др.).<br>3. Выделите <strong>6-8 ГБ ОЗУ</strong> и запускайте.</p>
             <div class="action-block" id="modpackBtnMods" style="margin-top: 0.8rem; width: auto; display: inline-block; padding: 0.5rem 1rem;">
                 <i class="fas fa-download"></i> Скачать сборку (.mrpack)
             </div>
@@ -743,9 +716,10 @@
         });
 
         // Ссылки
+        // ⚠️ ВАЖНО: замени modpack на свою ссылку с GitHub Releases / Яндекс.Диска / Google Drive
         const LINKS = {
             discord: "https://discord.gg/ZTdBYWcsf",
-            modpack: "/downloads/technovate.mrpack",
+            modpack: "https://drive.google.com/uc?export=download&id=1ePK3XkSie-zZjUvatQEdUbpTtzR5h-An",
             donate: "https://technovate.easydonate.ru/"
         };
 
@@ -765,30 +739,43 @@
             const dn = document.getElementById(`donateLink${suf}`); if(dn) dn.href = LINKS.donate;
         });
 
-        // Копирование IP (ИСПРАВЛЕНО)
+        // Копирование IP (с fallback для старых браузеров)
         document.getElementById("copyIpTrigger").addEventListener("click", function() {
             const ipText = document.querySelector('.ip-text').textContent.trim();
-            navigator.clipboard.writeText(ipText).then(() => {
-                const btn = this;
-                const orig = btn.innerText;
+            const btn = this;
+            const orig = btn.innerText;
+
+            function onSuccess() {
                 btn.innerText = "✅ IP скопирован!";
                 setTimeout(() => btn.innerText = orig, 1500);
-            }).catch(() => {
-                // fallback для старых браузеров
-                const textarea = document.createElement('textarea');
-                textarea.value = ipText;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                textarea.remove();
-                const btn = this;
-                const orig = btn.innerText;
-                btn.innerText = "✅ IP скопирован!";
-                setTimeout(() => btn.innerText = orig, 1500);
-            });
+            }
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(ipText).then(onSuccess).catch(() => {
+                    fallbackCopy(ipText, onSuccess);
+                });
+            } else {
+                fallbackCopy(ipText, onSuccess);
+            }
         });
 
-        // Вкладки
+        function fallbackCopy(text, callback) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                callback();
+            } catch (e) {
+                alert('Не удалось скопировать. IP: ' + text);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // ВКЛАДКИ С ПОДДЕРЖКОЙ ЯКОРЕЙ (можно давать ссылку сразу на вкладку)
         const tabs = document.querySelectorAll('.tab-btn');
         const panes = {
             main: document.getElementById('tab-main'),
@@ -797,6 +784,7 @@
             rules: document.getElementById('tab-rules'),
             support: document.getElementById('tab-support')
         };
+
         function switchTab(tabId) {
             Object.values(panes).forEach(p => p?.classList.remove('active-pane'));
             if (panes[tabId]) panes[tabId].classList.add('active-pane');
@@ -804,18 +792,30 @@
                 btn.classList.remove('active');
                 if (btn.getAttribute('data-tab') === tabId) btn.classList.add('active');
             });
+            // Обновляем hash в URL без перезагрузки
+            if (location.hash !== '#' + tabId) {
+                history.replaceState(null, '', '#' + tabId);
+            }
         }
+
         tabs.forEach(btn => {
             btn.addEventListener('click', () => {
-                const id = btn.getAttribute('data-tab');
-                if (id === 'main') switchTab('main');
-                else if (id === 'map') switchTab('map');
-                else if (id === 'mods') switchTab('mods');
-                else if (id === 'rules') switchTab('rules');
-                else if (id === 'support') switchTab('support');
+                switchTab(btn.getAttribute('data-tab'));
             });
+        });
+
+        // Открываем вкладку из hash при загрузке
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = location.hash.replace('#', '');
+            if (panes[hash]) switchTab(hash);
+        });
+
+        // Реагируем на изменение hash
+        window.addEventListener('hashchange', () => {
+            const hash = location.hash.replace('#', '');
+            if (panes[hash]) switchTab(hash);
         });
     })();
 </script>
 </body>
-                                                                                                </html>
+</html>
