@@ -625,8 +625,7 @@
                 хранит ваш ник и скин. Ничего настраивать вручную не надо.
             </p>
 
-            <a href="https://github.com/Xonety/Technovate-Launcher/releases/latest"
-               target="_blank"
+            <a href="https://github.com/Xonety/Technovate-Launcher/releases/latest/download/Technovate.exe"
                class="download-launcher-btn">
                 <i class="fas fa-download"></i>
                 Скачать лаунчер
@@ -642,22 +641,26 @@
             <ul class="launcher-steps">
                 <li>
                     <div class="step-num">1</div>
-                    <div>Нажмите <strong>«Скачать лаунчер»</strong> — откроется страница релиза на GitHub.</div>
+                    <div>Нажмите <strong>«Скачать лаунчер»</strong> — файл <code>Technovate.exe</code> сразу начнёт скачиваться.</div>
                 </li>
                 <li>
                     <div class="step-num">2</div>
-                    <div>В блоке <strong>Assets</strong> скачайте файл <code>Technovate.exe</code>.</div>
+                    <div>Дождитесь окончания загрузки (~100 МБ). Если браузер спросит разрешение — подтвердите сохранение.</div>
                 </li>
                 <li>
                     <div class="step-num">3</div>
-                    <div>Поместите его в удобную папку (например, <code>D:\Technovate\</code>) и запустите.</div>
+                    <div>Поместите <code>Technovate.exe</code> в удобную папку (например, <code>D:\Technovate\</code>) и запустите двойным кликом.</div>
                 </li>
                 <li>
                     <div class="step-num">4</div>
-                    <div>Введите свой ник, при желании загрузите скин и нажмите <strong>«ИГРАТЬ»</strong>.</div>
+                    <div>Если антивирус ругается — нажмите <strong>«Разрешить»</strong> или добавьте файл в исключения. Это ложное срабатывание, так бывает со всеми PyInstaller-сборками.</div>
                 </li>
                 <li>
                     <div class="step-num">5</div>
+                    <div>Введите свой ник, при желании загрузите скин и нажмите <strong>«ИГРАТЬ»</strong>.</div>
+                </li>
+                <li>
+                    <div class="step-num">6</div>
                     <div>Лаунчер сам скачает Java, мод-сборку и NeoForge. Первый запуск займёт 5–15 минут.</div>
                 </li>
             </ul>
@@ -844,7 +847,7 @@
 
         const LINKS = {
             discord:  "https://discord.gg/6YzrjU3U3",
-            launcher: "https://github.com/Xonety/Technovate-Launcher/releases/latest",
+            launcher: "https://github.com/Xonety/Technovate-Launcher/releases/latest/download/Technovate.exe",
             github:   "https://github.com/Xonety/Technovate-Launcher",
             donate:   "https://technovate.easydonate.ru/"
         };
@@ -854,7 +857,7 @@
             if (el) el.addEventListener("click", () => blank ? window.open(url, "_blank") : location.href = url);
         }
         bindClick("discordBtn", LINKS.discord);
-        bindClick("launcherBtn", LINKS.launcher);
+        bindClick("launcherBtn", LINKS.launcher, false);
         bindClick("donateBtn", LINKS.donate);
         bindClick("supportDiscordBtn", LINKS.discord);
 
@@ -863,7 +866,10 @@
             const dn = document.getElementById(`donateLink${suf}`); if(dn) dn.href = LINKS.donate;
         });
         const launcherLinkRules = document.getElementById("launcherLinkRules");
-        if (launcherLinkRules) launcherLinkRules.href = LINKS.launcher;
+        if (launcherLinkRules) {
+            launcherLinkRules.href = LINKS.launcher;
+            launcherLinkRules.removeAttribute("target");
+        }
         const discordLinkLauncher = document.getElementById("discordLinkLauncher");
         if (discordLinkLauncher) discordLinkLauncher.href = LINKS.discord;
         const donateLinkLauncher = document.getElementById("donateLinkLauncher");
